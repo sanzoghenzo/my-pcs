@@ -9,14 +9,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs.url = "github:serokell/deploy-rs";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, deploy-rs, ... }: let
+  outputs = inputs@{ 
+    self, 
+    nixpkgs, 
+    home-manager,
+    deploy-rs,
+    nixgl,
+    nixos-hardware,
+    ... 
+  }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
     deployPkgs = import nixpkgs {
       inherit system;
       overlays = [
+        nixgl.overlay
         deploy-rs.overlay
         (self: super: { 
           deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; 
@@ -47,8 +61,9 @@
         pkgs.home-manager
         pkgs.git
         pkgs.go-task
-        pkgs.deploy-rs
         pkgs.helix
+        # deployPkgs.nixgl.auto.nixGLDefault
+        pkgs.deploy-rs
       ];
     };
 
@@ -57,10 +72,9 @@
       viewscreen = {
         sshUser = "root";
         hostname = "viewscreen";
-        # interactiveSudo = true;
         profiles.system = {
           user = "root";
-          path = deploy-rs.lib."${system}".activate.nixos self.nixosConfigurations.viewscreen;
+          path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.viewscreen;
         };
       };
     };

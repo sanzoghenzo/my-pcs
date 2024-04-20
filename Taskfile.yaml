@@ -6,7 +6,8 @@ tasks:
     cmds:
       - deploy .#viewscreen
 
-  # sphere:
-  #   desc: Deploy sphere (Main server)
-  #   cmds:
-  #     - deploy .#sphere
+  viewscreen-vm:
+    desc: Deploy viewscreen in a virtual machine
+    cmds:
+      - nix build .#nixosConfigurations.viewscreen.config.system.build.vm
+      - nixGL result/bin/run-viewscreen-vm

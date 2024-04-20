@@ -1,23 +1,40 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: let 
+  kodiAndPlugins = pkgs.kodi-gbm.withPackages (kodiPkgs: with kodiPkgs; [
+    trakt
+    youtube
+    libretro
+    inputstream-ffmpegdirect
+    inputstream-adaptive
+    pvr-iptvsimple
+    netflix
+    jellycon
+  ]);
+in {
   home = {
     username = "kodi";
     homeDirectory = "/home/kodi";
     stateVersion = "24.05";
   };
 
+  # Kodi GBM service
+  systemd.user.enable = true;
+  systemd.user.services.kodi = {
+    Unit.Description = "Kodi media center";
+    Install = {
+      WantedBy = ["default.target"];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${kodiAndPlugins}/bin/kodi-standalone";
+      Restart = "always";
+      TimeoutStopSec = "15s";
+      TimeoutStopFailureMode = "kill";
+    };
+  };
+
   programs.kodi = {
     enable = true;
-    package = pkgs.kodi-wayland.passthru.withPackages (kodiPkgs: with kodiPkgs; [
-      trakt
-      youtube # or invidious?
-      netflix
-      libretro
-      inputstream-ffmpegdirect
-      inputstream-adaptive
-      pvr-iptvsimple
-      jellycon
-    ]);
+    package = kodiAndPlugins;
     # addonSettings = {};
     settings = {
       services = {
