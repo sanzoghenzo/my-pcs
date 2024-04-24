@@ -37,6 +37,11 @@ in {
     package = kodiAndPlugins;
     # addonSettings = {};
     settings = {
+      # TODO: set
+      #  - audio device to samsung hdmi, 
+      #  - don't play sounds
+      #  - region default format central europe (24 hr clock)
+      #  - Timezone country Italy
       services = {
         devicename = "viewscreen";
         esallinterfaces = "true";
