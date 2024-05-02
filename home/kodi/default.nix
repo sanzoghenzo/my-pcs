@@ -7,7 +7,7 @@
     inputstream-adaptive
     pvr-iptvsimple
     netflix
-    jellycon
+    jellyfin
   ]);
 in {
   home = {
