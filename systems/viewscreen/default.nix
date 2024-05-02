@@ -20,6 +20,20 @@
   # using ALSA, we might need pulseaudio/pipewire for libretro
   sound.enable = true;
 
+  services.upower.enable = true;
+  security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (subject.user == "kodi" && (
+        action.id.indexOf("org.freedesktop.upower.") == 0 ||
+        action.id.indexOf("org.freedesktop.login1.") == 0 ||
+        action.id.indexOf("org.freedesktop.udisks.") == 0
+      )) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
+
   networking = {
     hostName = "viewscreen";
     enableIPv6 = false;
