@@ -32,4 +32,5 @@ to run a vm, use:
 task viewscreen-vm
 ```
 
-the user root is set with the password "test".
+At the first launch, login eith the user root and password "test", then run `reboot`.
+This will load the kodi user services and boot kodi at start.

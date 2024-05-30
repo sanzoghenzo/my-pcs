@@ -4,10 +4,12 @@ tasks:
   viewscreen:
     desc: Deploy viewscreen (HTPC)
     cmds:
-      - deploy .#viewscreen
+      # using --boot since the activation breaks the user's systemd
+      - deploy --boot .#viewscreen 
+      # - nix run github:nix-community/nixos-anywhere -- --flake .#viewscreen root@viewscreen
 
   viewscreen-vm:
     desc: Deploy viewscreen in a virtual machine
     cmds:
       - nix build .#nixosConfigurations.viewscreen.config.system.build.vm
-      - nixGL result/bin/run-viewscreen-vm
+      - ./result/bin/run-viewscreen-vm

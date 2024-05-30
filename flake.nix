@@ -1,7 +1,6 @@
 {
   description = "Sanzoghenzo home systems configuration";
-  nixConfig.bash-prompt = "nix-systems";
-
+  
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -9,10 +8,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs.url = "github:serokell/deploy-rs";
-    nixgl = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixgl = {
+    #   url = "github:nix-community/nixGL";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # disko = {
+    #   url = "github:nix-community/disko";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -21,16 +24,23 @@
     nixpkgs, 
     home-manager,
     deploy-rs,
-    nixgl,
+    # nixgl,
+    # disko,
     nixos-hardware,
     ... 
   }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    myPkgsOverlay = final: prev: (import ./pkgs { pkgs = prev; });
+    pkgs = import nixpkgs { 
+      inherit system; 
+      config.allowUnfree = true;
+      overlays = [ myPkgsOverlay ];
+    };
     deployPkgs = import nixpkgs {
       inherit system;
+      config.allowUnfree = true;
       overlays = [
-        nixgl.overlay
+        # nixgl.overlay
         deploy-rs.overlay
         (self: super: { 
           deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; 
@@ -41,14 +51,17 @@
     # systems configuration
     nixosConfigurations = {
       viewscreen = nixpkgs.lib.nixosSystem {
-        system = "${system}";
+        inherit system pkgs;
         modules = [
+          # disko.nixosModules.disko
           ./systems/viewscreen
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.kodi = import ./home/kodi;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.kodi = import ./home/kodi;
+            };
           }
         ];
       };

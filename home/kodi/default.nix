@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let 
+{ self, config, pkgs, ... }: let 
   kodiAndPlugins = pkgs.kodi-gbm.withPackages (kodiPkgs: with kodiPkgs; [
     trakt
     youtube
@@ -8,12 +8,15 @@
     pvr-iptvsimple
     netflix
     jellyfin
+    a4ksubtitles
+    pkgs.upnext
+    pkgs.horus
   ]);
 in {
   home = {
     username = "kodi";
     homeDirectory = "/home/kodi";
-    stateVersion = "24.05";
+    stateVersion = "23.11";
   };
 
   # Kodi GBM service
@@ -56,6 +59,11 @@ in {
       audiooutput.guisoundmode = "0";
     };
   };
+
+  home.packages = [
+    pkgs.upnext
+    pkgs.horus
+  ];
 
   programs.home-manager.enable = true;
 }

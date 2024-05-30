@@ -2,10 +2,12 @@
 {
   imports = [ 
     ./boot.nix
-    ./root-ssh.nix
     ./cleanup.nix
-    ./vm.nix
   ];
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = "nix-command flakes";
+  config ={
+    nix.settings.experimental-features = "nix-command flakes";
+    console.keyMap = "uk";
+    time.timeZone = "Europe/Rome";
+    i18n.defaultLocale = "it_IT.UTF-8";
+  };
 }

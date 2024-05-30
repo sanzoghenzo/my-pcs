@@ -4,7 +4,11 @@
     # inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
     ./kodi.nix
+    ./acestream.nix
     ../common
+    ../common/root-ssh.nix
+    ../common/vm.nix
+    # ./disk-config.nix
   ];
 
   hardware.opengl = {
