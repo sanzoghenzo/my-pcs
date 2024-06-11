@@ -37,6 +37,7 @@
   environment.systemPackages = with pkgs; [
     onlyoffice-bin
     chromium
+    kdrive
   ];
   security.chromiumSuidSandbox.enable = true;
   # needed for kDrive appimage

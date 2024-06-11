@@ -7,6 +7,7 @@
   raiplay = pkgs.kodi-gbm.packages.callPackage ./raiplay {};
   formula1 = pkgs.kodi-gbm.packages.callPackage ./formula1 {};
   skyvideoitalia = pkgs.kodi-gbm.packages.callPackage ./skyvideoitalia {};
+  kdrive = pkgs.callPackage ./kdrive {};
 }
 
 # plugin.video.wltvhelper
