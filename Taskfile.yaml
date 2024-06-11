@@ -1,11 +1,16 @@
 version: '3'
 
 tasks:
+  discovery:
+    desc: update discovery (laptop)
+    cmds:
+      - sudo nixos-rebuild --flake .#discovery switch
+
   viewscreen:
     desc: Deploy viewscreen (HTPC)
     cmds:
       # using --boot since the activation breaks the user's systemd
-      - deploy --boot .#viewscreen 
+      - deploy --boot .#viewscreen
       # - nix run github:nix-community/nixos-anywhere -- --flake .#viewscreen root@viewscreen
 
   viewscreen-vm:

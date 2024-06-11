@@ -1,6 +1,6 @@
 {
   description = "Sanzoghenzo home systems configuration";
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -8,10 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs.url = "github:serokell/deploy-rs";
-    # nixgl = {
-    #   url = "github:nix-community/nixGL";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     # disko = {
     #   url = "github:nix-community/disko";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -19,20 +15,19 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = inputs@{ 
-    self, 
-    nixpkgs, 
+  outputs = inputs@{
+    self,
+    nixpkgs,
     home-manager,
     deploy-rs,
-    # nixgl,
     # disko,
     nixos-hardware,
-    ... 
+    ...
   }: let
     system = "x86_64-linux";
     myPkgsOverlay = final: prev: (import ./pkgs { pkgs = prev; });
-    pkgs = import nixpkgs { 
-      inherit system; 
+    pkgs = import nixpkgs {
+      inherit system;
       config.allowUnfree = true;
       overlays = [ myPkgsOverlay ];
     };
@@ -40,16 +35,29 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
-        # nixgl.overlay
         deploy-rs.overlay
-        (self: super: { 
-          deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; 
+        (self: super: {
+          deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; };
         })
       ];
     };
   in {
     # systems configuration
     nixosConfigurations = {
+      discovery = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        modules = [
+          ./systems/discovery
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.sanzo = import ./home/sanzo;
+            };
+          }
+        ];
+      };
       viewscreen = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
@@ -75,7 +83,6 @@
         pkgs.git
         pkgs.go-task
         pkgs.helix
-        # deployPkgs.nixgl.auto.nixGLDefault
         pkgs.deploy-rs
       ];
     };
