@@ -11,6 +11,9 @@
     a4ksubtitles
     pkgs.upnext
     pkgs.horus
+    pkgs.raiplay
+    pkgs.formula1
+    pkgs.skyvideoitalia
   ]);
 in {
   home = {
