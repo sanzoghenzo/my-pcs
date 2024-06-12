@@ -60,10 +60,5 @@ in {
     };
   };
 
-  home.packages = [
-    pkgs.upnext
-    pkgs.horus
-  ];
-
   programs.home-manager.enable = true;
 }
