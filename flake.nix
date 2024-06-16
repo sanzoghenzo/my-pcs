@@ -48,6 +48,7 @@
         inherit system pkgs;
         modules = [
           ./systems/discovery
+          nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
           home-manager.nixosModules.home-manager
           {
             home-manager = {

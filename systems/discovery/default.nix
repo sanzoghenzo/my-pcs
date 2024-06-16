@@ -21,6 +21,14 @@
     variant = "extd";
   };
 
+  # nvidia/opengl
+  hardware.nvidia.modesetting.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -31,13 +39,18 @@
     pulse.enable = true;
   };
 
+  # firmware updates
+  services.fwupd.enable = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
+    libsmbios  # dell fan control
     onlyoffice-bin
     chromium
     kdrive
+    htop
   ];
   security.chromiumSuidSandbox.enable = true;
   # needed for kDrive appimage
