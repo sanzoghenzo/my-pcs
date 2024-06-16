@@ -13,6 +13,7 @@ in
     devbox
     direnv
     lazygit
+    anytype
   ];
   programs.vscode.enable = true;
   programs.home-manager.enable = true;
