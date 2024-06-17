@@ -14,6 +14,7 @@ in
     direnv
     lazygit
     anytype
+    blender
   ];
   programs.vscode.enable = true;
   programs.home-manager.enable = true;
