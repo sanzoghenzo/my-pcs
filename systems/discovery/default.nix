@@ -5,8 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../common
-      ../common/podman.nix
-      ../common/libvirt.nix
+      ./virtualization.nix
       ./sanzo.nix
     ];
 
