@@ -34,6 +34,10 @@ in
         hostname = "192.168.1.224";
         inherit identityFile;
       };
+      sphere = {
+        hostname = "192.168.1.225";
+        inherit identityFile;
+      };
       "gitlab.com" = {
         inherit identityFile;
       };
