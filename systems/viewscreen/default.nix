@@ -5,15 +5,14 @@
     ./hardware-configuration.nix
     ./kodi.nix
     ./acestream.nix
-    ../common
+    ../common/base
     ../common/root-ssh.nix
     ../common/vm.nix
     # ./disk-config.nix
   ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
     extraPackages = [
       pkgs.vaapiVdpau
       pkgs.libvdpau-va-gl
@@ -21,11 +20,10 @@
     ];
   };
 
-  # using ALSA, we might need pulseaudio/pipewire for libretro
-  sound.enable = true;
+  hardware.alsa.enablePersistence = true;
+  environment.systemPackages = [ pkgs.alsa-utils ]; 
 
   services.upower.enable = true;
-  security.polkit.enable = true;
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
       if (subject.user == "kodi" && (
@@ -39,16 +37,12 @@
   '';
 
   networking = {
-    hostName = "viewscreen";
-    enableIPv6 = false;
-    usePredictableInterfaceNames = false;
-    interfaces.eth0 = {
-      useDHCP = true;
+    interfaces.enp3s0 = {
       wakeOnLan.enable = true;
     };
     nat = {
       enable = true;
-      externalInterface = "eth0";
+      externalInterface = "enp3s0";
     };
     iproute2.enable = true;
   };

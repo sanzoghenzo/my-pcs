@@ -1,20 +1,34 @@
 version: '3'
 
 tasks:
+  check:
+    desc: checks the flake without building it
+    cmds: [nix flake check --no-build]
+
+  upgrade:
+    desc: upgrade the package repositories
+    cmds: [nix flake update]
+
   discovery:
     desc: update discovery (laptop)
-    cmds:
-      - sudo nixos-rebuild --flake .#discovery switch
+    cmds: [sudo nixos-rebuild --flake .#discovery switch]
 
   viewscreen:
     desc: Deploy viewscreen (HTPC)
     cmds:
       # using --boot since the activation breaks the user's systemd
       - deploy --boot .#viewscreen
-      # - nix run github:nix-community/nixos-anywhere -- --flake .#viewscreen root@viewscreen
 
-  viewscreen-vm:
+  vm:
+    internal: true
+    cmds:
+      - nix build .#vms.{{.TARGET}}
+      - ./result/bin/run-{{.TARGET}}-vm
+
+  vm:viewscreen:
     desc: Deploy viewscreen in a virtual machine
     cmds:
-      - nix build .#nixosConfigurations.viewscreen.config.system.build.vm
-      - ./result/bin/run-viewscreen-vm
+      - task: vm
+        vars:
+          TARGET: viewscreen
+

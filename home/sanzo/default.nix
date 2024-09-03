@@ -1,4 +1,4 @@
-{ self, config, pkgs, ... }:
+{ pkgs, ... }:
 let
   identityFile = "/home/sanzo/.ssh/id_rsa";
 in
@@ -15,6 +15,7 @@ in
     lazygit
     anytype
     blender
+    qbittorrent
   ];
   programs.vscode.enable = true;
   programs.home-manager.enable = true;
@@ -22,6 +23,7 @@ in
     enable = true;
     userName = "Andrea Ghensi";
     userEmail = "andrea.ghensi@gmail.com";
+    extraConfig.push.autoSetupRemote = true;
   };
   programs.ssh = {
     enable = true;
@@ -45,4 +47,13 @@ in
   };
   services.keybase.enable = true;
   services.kbfs.enable = true;
+
+  programs.mpv = {
+    enable = true;
+  };
+
+  programs.zellij = {
+    enable = true;
+    enableBashIntegration = true;
+  };
 }

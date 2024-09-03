@@ -3,16 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    deploy-rs.url = "github:serokell/deploy-rs";
-    # disko = {
-    #   url = "github:nix-community/disko";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    catppuccin.url = "github:catppuccin/nix";
+    deploy-rs.url = "github:serokell/deploy-rs";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{
@@ -29,7 +31,10 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [ myPkgsOverlay ];
+      overlays = [
+        myPkgsOverlay
+        inputs.agenix.overlays.default
+      ];
     };
     deployPkgs = import nixpkgs {
       inherit system;
@@ -41,14 +46,15 @@
         })
       ];
     };
-  in {
+  in rec {
     # systems configuration
     nixosConfigurations = {
       discovery = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
           ./systems/discovery
-          nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
+          nixos-hardware.nixosModules.dell-xps-15-9560-intel
+          inputs.agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -58,6 +64,10 @@
             };
           }
         ];
+        specialArgs = {
+          username = "sanzo";
+          hostname = "discovery";
+        };
       };
       viewscreen = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
@@ -73,7 +83,15 @@
             };
           }
         ];
+        specialArgs = {
+          username = "kodi";
+          hostname = "viewscreen";
+        };
       };
+    };
+
+    vms = {
+      viewscreen = nixosConfigurations.viewscreen.config.system.build.vm;
     };
 
     # profiles to use with nix develop

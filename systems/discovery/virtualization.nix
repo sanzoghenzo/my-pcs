@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-let 
- # TODO: turn this into an argument
- username = "sanzo";
-in 
+{ pkgs, username, ... }:
 {
   # TODO: evaluate nixvirt
   # https://flakehub.com/flake/AshleyYakeley/NixVirt
