@@ -42,4 +42,6 @@
   security.chromiumSuidSandbox.enable = true;
   # needed for kDrive appimage
   security.unprivilegedUsernsClone = true;
+
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key.pub" ];
 }

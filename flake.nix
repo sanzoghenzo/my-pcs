@@ -89,9 +89,21 @@
           hostname = "viewscreen";
         };
       };
+      zora = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        modules = [
+          ./systems/zora
+          nixos-hardware.nixosModules.common-cpu-intel
+        ];
+        specialArgs = {
+          username = null;
+          hostname = "zora";  
+        };
+      };
     };
 
     vms = {
+      zora = nixosConfigurations.zora.config.system.build.vm;
       viewscreen = nixosConfigurations.viewscreen.config.system.build.vm;
     };
 
@@ -117,7 +129,16 @@
           path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.viewscreen;
         };
       };
+      zora = {
+        sshUser = "root";
+        hostname = "zora";
+        profiles.system = {
+          user = "root";
+          path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.zora;
+        };
+      };
     };
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    # formatter = libx.forAllSystems (system: self.packages.${system}.nixfmt-plus);
   };
 }

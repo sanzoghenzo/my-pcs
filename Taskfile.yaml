@@ -32,3 +32,9 @@ tasks:
         vars:
           TARGET: viewscreen
 
+  vm:zora:
+    desc: Deploy zora in a virtual machine
+    cmds:
+      - task: vm
+        vars:
+          TARGET: zora
