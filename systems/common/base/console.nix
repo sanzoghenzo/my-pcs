@@ -15,7 +15,7 @@ in
 
   services.kmscon = {
     enable = true;
-      hwRender = true;
+    hwRender = true;
     fonts = [
       {
         name = "${theme.fonts.monospace.name}";

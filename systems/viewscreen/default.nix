@@ -1,7 +1,6 @@
-{ inputs, lib, config, pkgs, ...}:
+{ pkgs, ...}:
 {
   imports = [ 
-    # inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware-configuration.nix
     ./kodi.nix
     ./acestream.nix
@@ -47,5 +46,4 @@
     };
     iproute2.enable = true;
   };
-  system.stateVersion = "23.11";
 }

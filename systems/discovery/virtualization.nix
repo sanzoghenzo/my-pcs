@@ -4,8 +4,8 @@
   # https://flakehub.com/flake/AshleyYakeley/NixVirt
 
   imports = [ 
-    ../common/podman.nix
-    ../common/libvirt.nix 
+    ../common/services/podman.nix
+    ../common/services/libvirt.nix 
   ];
   
   # VMs will be started manually

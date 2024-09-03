@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+_:
 {
   virtualisation.containers.enable = true;
   virtualisation = {

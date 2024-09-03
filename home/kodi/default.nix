@@ -1,4 +1,4 @@
-{ self, config, pkgs, ... }: let 
+{ pkgs, ... }: let 
   kodiAndPlugins = pkgs.kodi-gbm.withPackages (kodiPkgs: with kodiPkgs; [
     trakt
     youtube

@@ -1,15 +1,13 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 {
   imports = [
+    ./hardware-configuration.nix
     ../common/base
     ../common/desktop/plasma.nix
-    ../users/sanzo.nix
+    ../users/sanzo
     ./hardware-configuration.nix
     ./virtualization.nix
   ];
-
-  networking.networkmanager.enable = true;
 
   # nvidia/opengl
   hardware.nvidia.modesetting.enable = true;
@@ -26,10 +24,13 @@
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
 
+  networking.networkmanager.enable = true;
   # firmware updates
   services.fwupd.enable = true;
 
   programs.firefox.enable = true;
+
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     libsmbios  # dell fan control
@@ -41,6 +42,4 @@
   security.chromiumSuidSandbox.enable = true;
   # needed for kDrive appimage
   security.unprivilegedUsernsClone = true;
-
-  system.stateVersion = "24.05";
 }

@@ -74,6 +74,7 @@
         modules = [
           # disko.nixosModules.disko
           ./systems/viewscreen
+          nixos-hardware.nixosModules.common-cpu-intel
           home-manager.nixosModules.home-manager
           {
             home-manager = {

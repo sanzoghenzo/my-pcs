@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+_:
 {
   users.extraUsers.kodi ={
     isNormalUser = true;
