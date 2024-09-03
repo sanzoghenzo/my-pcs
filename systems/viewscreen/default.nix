@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./kodi.nix
     ./acestream.nix
+    ./hyperion.nix
     ../common/base
     ../common/root-ssh.nix
     ../common/vm.nix
