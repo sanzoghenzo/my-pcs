@@ -46,4 +46,13 @@
     };
     iproute2.enable = true;
   };
+
+  virtualisation.vmVariant.virtualisation = {
+    graphics = true;
+    qemu.options = [
+      "-vga none"
+      "-device virtio-vga-gl"
+      "-display gtk,gl=on"
+    ];
+  };
 }

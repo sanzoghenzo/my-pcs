@@ -5,7 +5,7 @@
     virtualisation = {
       memorySize = 4096;
       cores = 4;
-      qemu.options = [ "-vga none" "-device virtio-vga-gl" "-display gtk,gl=on" ];
+      graphics = lib.mkDefault false;
     };
     users.users.root.password = "test";
     services.resolved.extraConfig = lib.mkForce "";
