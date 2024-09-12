@@ -33,7 +33,7 @@
   services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
-    libsmbios  # dell fan control
+    libsmbios # dell fan control
     onlyoffice-bin
     chromium
     kdrive

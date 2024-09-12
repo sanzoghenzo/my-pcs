@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ...}:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   boot = {
     loader.systemd-boot = {

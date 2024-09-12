@@ -1,4 +1,11 @@
-{ lib, rel, buildKodiAddon, fetchzip, addonUpdateScript, protobuf-kodi }:
+{
+  lib,
+  rel,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  protobuf-kodi,
+}:
 
 buildKodiAddon rec {
   pname = "hyperion-kodi";

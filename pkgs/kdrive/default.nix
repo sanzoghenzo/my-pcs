@@ -1,23 +1,23 @@
 {
-  appimageTools
-  , fetchurl
-  , lib
-  , stdenv
-  , alsa-lib
-  , e2fsprogs
-  , expat
-  , fontconfig
-  , freetype
-  , gcc-unwrapped
-  , glib
-  , glibc
-  , gmp
-  , libglvnd
-  , libgpg-error
-  , p11-kit
-  , qt6
-  , xorg
-  , zlib
+  appimageTools,
+  fetchurl,
+  lib,
+  stdenv,
+  alsa-lib,
+  e2fsprogs,
+  expat,
+  fontconfig,
+  freetype,
+  gcc-unwrapped,
+  glib,
+  glibc,
+  gmp,
+  libglvnd,
+  libgpg-error,
+  p11-kit,
+  qt6,
+  xorg,
+  zlib,
 }:
 
 with lib;
@@ -43,7 +43,8 @@ let
     };
   };
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   meta = {
     description = "kDrive desktop synchronization client.";
@@ -57,7 +58,12 @@ let
   contents = appimageTools.extract { inherit pname version src; };
 
   linux = stdenv.mkDerivation rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
     dontUnpack = true;
     dontConfigure = true;
@@ -131,7 +137,12 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
     dontBuild = true;
 
@@ -150,6 +161,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

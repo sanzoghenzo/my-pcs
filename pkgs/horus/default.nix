@@ -1,4 +1,9 @@
-{ lib, buildKodiAddon, fetchzip, kodi-six }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  kodi-six,
+}:
 
 buildKodiAddon rec {
   pname = "horus";

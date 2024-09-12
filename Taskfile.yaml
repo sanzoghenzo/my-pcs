@@ -1,8 +1,18 @@
 version: '3'
 
 tasks:
+  lint:
+    desc: Format the files
+    cmds: [nix fmt]
+
+  stage:
+    internal: true
+    deps: [lint]
+    cmds: [git add .]
+
   check:
     desc: checks the flake without building it
+    deps: [stage]
     cmds: [nix flake check --no-build]
 
   upgrade:
@@ -11,16 +21,23 @@ tasks:
 
   discovery:
     desc: update discovery (laptop)
+    deps: [stage]
     cmds: [sudo nixos-rebuild --flake .#discovery switch]
 
   viewscreen:
     desc: Deploy viewscreen (HTPC)
-    cmds:
-      # using --boot since the activation breaks the user's systemd
-      - deploy --boot .#viewscreen
+    deps: [stage]
+    # using --boot since the activation breaks the user's systemd
+    cmds: [deploy --boot .#viewscreen]
+
+  zora:
+    desc: Deploy zora (server)
+    deps: [stage]
+    cmds: [deploy .#zora]
 
   vm:
     internal: true
+    deps: [stage]
     cmds:
       - nix build .#vms.{{.TARGET}}
       - ./result/bin/run-{{.TARGET}}-vm

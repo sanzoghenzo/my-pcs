@@ -1,6 +1,6 @@
-_ : {
+_: {
   time.timeZone = "Europe/Rome";
-  
+
   console.keyMap = "uk";
   services.xserver.xkb = {
     layout = "gb";

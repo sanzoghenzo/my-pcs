@@ -1,4 +1,9 @@
-{ lib, username? null, hostname, ... }:
+{
+  lib,
+  username ? null,
+  hostname,
+  ...
+}:
 {
   imports = [
     ./boot.nix
@@ -35,7 +40,9 @@
   };
 
   # Create dirs for home-manager
-  systemd.tmpfiles.rules = lib.mkIf (username != null) [ "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root" ];
+  systemd.tmpfiles.rules = lib.mkIf (username != null) [
+    "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
+  ];
 
   system.stateVersion = "24.05";
 }

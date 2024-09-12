@@ -1,8 +1,11 @@
-_:
-{
-  users.extraUsers.kodi ={
+_: {
+  users.extraUsers.kodi = {
     isNormalUser = true;
-    extraGroups = [ "audio" "video" "input" ];
+    extraGroups = [
+      "audio"
+      "video"
+      "input"
+    ];
     linger = true;
   };
 

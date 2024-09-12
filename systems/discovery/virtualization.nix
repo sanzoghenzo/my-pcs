@@ -3,11 +3,11 @@
   # TODO: evaluate nixvirt
   # https://flakehub.com/flake/AshleyYakeley/NixVirt
 
-  imports = [ 
+  imports = [
     ../common/services/podman.nix
-    ../common/services/libvirt.nix 
+    ../common/services/libvirt.nix
   ];
-  
+
   # VMs will be started manually
   virtualisation.libvirtd = {
     onBoot = "ignore";
@@ -15,7 +15,7 @@
   };
 
   virtualisation.spiceUSBRedirection.enable = true;
-  
+
   users.users.${username}.extraGroups = [ "libvirtd" ];
   home-manager.users.${username} = {
     dconf.settings = {
@@ -25,12 +25,12 @@
       };
     };
   };
-  
+
   programs.virt-manager.enable = true;
 
   environment.systemPackages = with pkgs; [
     virt-viewer
-    spice 
+    spice
     spice-gtk
     spice-protocol
   ];

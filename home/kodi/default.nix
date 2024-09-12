@@ -1,32 +1,35 @@
-{ pkgs, ... }: let 
-  kodiAndPlugins = pkgs.kodi-gbm.withPackages (kodiPkgs: with kodiPkgs; [
-    trakt
-    youtube
-    libretro
-    libretro-2048
-    libretro-fuse
-    libretro-genplus
-    libretro-mgba
-    libretro-nestopia
-    libretro-snes9x
-    controller-topology-project
-    iagl
-    inputstream-ffmpegdirect
-    inputstream-adaptive
-    pvr-iptvsimple
-    netflix
-    jellyfin
-    a4ksubtitles
-    pkgs.horus
-    upnext
-    raiplay
-    formula1
-    skyvideoitalia
-    radioparadise
-    pkgs.protobuf-kodi
-    pkgs.hyperion-kodi
-  ]);
-in {
+{ pkgs, ... }:
+let
+  kodiAndPlugins = pkgs.kodi-gbm.withPackages (
+    kodiPkgs: with kodiPkgs; [
+      trakt
+      youtube
+      libretro
+      libretro-2048
+      libretro-fuse
+      libretro-genplus
+      libretro-mgba
+      libretro-nestopia
+      libretro-snes9x
+      controller-topology-project
+      iagl
+      inputstream-ffmpegdirect
+      inputstream-adaptive
+      pvr-iptvsimple
+      netflix
+      jellyfin
+      a4ksubtitles
+      pkgs.horus
+      upnext
+      raiplay
+      formula1
+      skyvideoitalia
+      radioparadise
+      pkgs.hyperion-kodi
+    ]
+  );
+in
+{
   home = {
     username = "kodi";
     homeDirectory = "/home/kodi";
@@ -38,7 +41,7 @@ in {
   systemd.user.services.kodi = {
     Unit.Description = "Kodi media center";
     Install = {
-      WantedBy = ["default.target"];
+      WantedBy = [ "default.target" ];
     };
     Service = {
       Type = "simple";

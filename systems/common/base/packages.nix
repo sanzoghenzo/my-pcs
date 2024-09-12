@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, system, ... }:
 {
   environment.systemPackages = with pkgs; [
     agenix

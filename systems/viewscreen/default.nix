@@ -1,6 +1,6 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./kodi.nix
     ./acestream.nix
@@ -21,7 +21,7 @@
   };
 
   hardware.alsa.enablePersistence = true;
-  environment.systemPackages = [ pkgs.alsa-utils ]; 
+  environment.systemPackages = [ pkgs.alsa-utils ];
 
   services.upower.enable = true;
   security.polkit.extraConfig = ''

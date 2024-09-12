@@ -1,6 +1,12 @@
-{ lib, config, pkgs, hostname, ...}:
 {
-  imports = [ 
+  lib,
+  config,
+  pkgs,
+  hostname,
+  ...
+}:
+{
+  imports = [
     ./hardware-configuration.nix
     ../common/base
     ../common/root-ssh.nix
