@@ -8,7 +8,6 @@
   imports = [
     ./boot.nix
     ./cleanup.nix
-    ./console.nix
     ./locale.nix
     ./packages.nix
     ../services/tailscale.nix
