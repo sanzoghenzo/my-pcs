@@ -13,11 +13,11 @@
 
   # /var/lib/jellyseerr/settings.json
   # {
-  #   "clientId": "47c15e79-38e9-4e89-8b69-18fde5e7b380",
-  #   "vapidPrivate": "T9twjlo_PzOvbHKLHiGlUCJsUfo-I2NeSCgf5sT4onM",
-  #   "vapidPublic": "BM-z245lRii6gQmWhLjRg2JsPRX0ZxSEzZq1tw87gpAULLFrKNS6Qj5cGTSbbG46GLZHoUts6ohUxuban3iYAY0",
+  #   "clientId": "",
+  #   "vapidPrivate": "",
+  #   "vapidPublic": "",
   #   "main": {
-  #     "apiKey": "MTcxMjg2OTkwODY4NmYyYTE2ODExLTFlNzQtNDNjZi1hYmI5LWVmNmVjM2EyNDFlNA==",
+  #     "apiKey": "",
   #     "applicationTitle": "Jellyseerr",
   #     "applicationUrl": "",
   #     "csrfProtection": false,
@@ -76,7 +76,7 @@
   #     "name": "home",
   #     "hostname": "localhost",
   #     "port": 7878,
-  #     "apiKey": "c2960dcc88f149d782deb5e7207a7211",
+  #     "apiKey": "",
   #     "useSsl": false,
   #     "baseUrl": "",
   #     "activeProfileId": 6,
@@ -97,7 +97,7 @@
   #     "name": "Home",
   #     "hostname": "localhost",
   #     "port": 8989,
-  #     "apiKey": "2e52e7edc21d4f9084b05807c81eaae9",
+  #     "apiKey": "",
   #     "useSsl": false,
   #     "activeProfileId": 6,
   #     "activeLanguageProfileId": 1,

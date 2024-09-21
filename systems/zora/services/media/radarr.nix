@@ -21,7 +21,7 @@
   #   <SslPort>9898</SslPort>
   #   <EnableSsl>False</EnableSsl>
   #   <LaunchBrowser>False</LaunchBrowser>
-  #   <ApiKey>c2960dcc88f149d782deb5e7207a7211</ApiKey>
+  #   <ApiKey></ApiKey>
   #   <AuthenticationMethod>External</AuthenticationMethod>
   #   <AuthenticationRequired>Enabled</AuthenticationRequired>
   #   <Branch>master</Branch>

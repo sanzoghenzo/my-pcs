@@ -22,7 +22,7 @@
   #   <SslPort>9898</SslPort>
   #   <UrlBase></UrlBase>
   #   <BindAddress>*</BindAddress>
-  #   <ApiKey>2e52e7edc21d4f9084b05807c81eaae9</ApiKey>
+  #   <ApiKey></ApiKey>
   #   <AuthenticationMethod>External</AuthenticationMethod>
   #   <UpdateMechanism>BuiltIn</UpdateMechanism>
   #   <Branch>main</Branch>
