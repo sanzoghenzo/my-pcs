@@ -2,26 +2,16 @@
   lib,
   config,
   pkgs,
-  hostname,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
     ../common/base
+    ../common/services/tailscale.nix
     ../common/root-ssh.nix
     ../common/vm.nix
+    ../common/eth0-wol.nix
     ./services
   ];
-
-  networking = {
-    interfaces.eth0 = {
-      wakeOnLan.enable = true;
-    };
-    nat = {
-      enable = true;
-      externalInterface = "eth0";
-    };
-    iproute2.enable = true;
-  };
 }

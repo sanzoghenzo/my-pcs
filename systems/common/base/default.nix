@@ -10,7 +10,6 @@
     ./cleanup.nix
     ./locale.nix
     ./packages.nix
-    ../services/tailscale.nix
   ];
 
   nix.settings.experimental-features = "nix-command flakes";
@@ -24,7 +23,7 @@
 
   programs = {
     thefuck.enable = true;
-    # TODO: starship o basta console.nix?
+    # TODO: starship
     # zsh.enable = true;
   };
 

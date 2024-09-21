@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/base
+    ../common/services/tailscale.nix
     ../common/desktop/plasma.nix
     ../users/sanzo
     ./hardware-configuration.nix
@@ -29,8 +30,6 @@
   services.fwupd.enable = true;
 
   programs.firefox.enable = true;
-
-  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     libsmbios # dell fan control

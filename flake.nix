@@ -84,14 +84,6 @@
             ./systems/viewscreen
             nixos-hardware.nixosModules.common-cpu-intel
             agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.kodi = import ./home/kodi;
-              };
-            }
           ];
           specialArgs = {
             username = "kodi";

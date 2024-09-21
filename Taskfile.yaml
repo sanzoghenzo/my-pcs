@@ -27,8 +27,7 @@ tasks:
   viewscreen:
     desc: Deploy viewscreen (HTPC)
     deps: [stage]
-    # using --boot since the activation breaks the user's systemd
-    cmds: [deploy --boot .#viewscreen]
+    cmds: [deploy .#viewscreen]
 
   zora:
     desc: Deploy zora (server)
