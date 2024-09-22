@@ -43,6 +43,11 @@ in
       "gitlab.com" = {
         inherit identityFile;
       };
+      sveglia = {
+        hostname = "192.168.1.209";
+        inherit identityFile;
+        port = 8022;
+      };
     };
   };
   services.keybase.enable = true;
