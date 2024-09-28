@@ -14,7 +14,6 @@
       p.netflix
       p.pvr-iptvsimple
       p.raiplay
-      p.sendtokodi
       p.skyvideoitalia
       p.trakt
       p.upnext
@@ -25,6 +24,7 @@
 
       # gaming
       p.iagl
+      p.infotagger # missing dep for iagl
       p.joystick
       p.libretro-genplus
       p.libretro-mgba
