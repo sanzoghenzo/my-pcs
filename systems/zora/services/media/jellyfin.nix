@@ -6,7 +6,9 @@
     openFirewall = true; # needed for DLNA
   };
 
-  # ${services.jellyfin.configDir}/system.xml
+  # add hardware decoding
+  users.users.jellyfin.extraGroups = [ "render" ];
+
 
   imports = [
     (import ../expose-service.nix {
