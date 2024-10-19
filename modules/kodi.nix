@@ -296,6 +296,7 @@ in
         ];
         description = "Kodi player user";
         home = cfg.dataDir;
+        linger = true;
       };
     };
 
@@ -325,7 +326,7 @@ in
       );
 
     # taken from https://github.com/graysky2/kodi-standalone-service
-    systemd.services.kodi = {
+    systemd.user.services.kodi = {
       description = "kodi media center";
       wantedBy = [ "default.target" ];
       partOf = [ "default.target" ];
@@ -345,8 +346,8 @@ in
       ];
       conflicts = [ "getty@tty.service" ];
       serviceConfig = {
-        User = cfg.user;
-        Group = cfg.group;
+        # User = cfg.user;
+        # Group = cfg.group;
         TTYPath = "/dev/tty1";
         ExecStart = "${cfg.package}/bin/kodi-standalone";
         Restart = "on-failure";
@@ -357,5 +358,19 @@ in
       };
       environment.KODI_DATA = cfg.dataDir;
     };
+
+    services.upower.enable = true;
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (subject.user == "${cfg.user}" && (
+          action.id.indexOf("org.freedesktop.upower.") == 0 ||
+          action.id.indexOf("org.freedesktop.login1.") == 0 ||
+          action.id.indexOf("org.freedesktop.udisks") == 0 ||
+          action.id.indexOf("org.freedesktop.consolekit.system.") == 0
+        )) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
   };
 }

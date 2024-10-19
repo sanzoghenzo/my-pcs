@@ -10,6 +10,7 @@
     ../common/root-ssh.nix
     ../common/vm.nix
     ../common/eth0-wol.nix
+    ../common/services/podman.nix
     # ./disk-config.nix
   ];
 
@@ -19,6 +20,9 @@
       "-vga none"
       "-device virtio-vga-gl"
       "-display gtk,gl=on"
+      "-audiodev pipewire,id=audio0"
+      "-device intel-hda"
+      "-device hda-output,audiodev=audio0"
     ];
   };
 }

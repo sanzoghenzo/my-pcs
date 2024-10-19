@@ -65,8 +65,8 @@
         esallinterfaces = true;
       };
       audiooutput = {
-        # set audio device to hdmi
-        audiodevice = "ALSA:@|Default (HDA Intel PCH ALC255 Analog)";
+        # send audio to normalizer
+        audiodevice = "PIPEWIRE:effect_input.normalizer|Normalizer Sink";
         # don't play sounds
         guisoundmode = "0";
         streamnoise = "false";
@@ -89,19 +89,89 @@
     ];
   };
 
-  hardware.alsa.enablePersistence = true;
-  environment.systemPackages = [ pkgs.alsa-utils ];
+  environment.systemPackages = [ pkgs.ladspaPlugins ];
 
-  services.upower.enable = true;
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      if (subject.user == "kodi" && (
-        action.id.indexOf("org.freedesktop.upower.") == 0 ||
-        action.id.indexOf("org.freedesktop.login1.") == 0 ||
-        action.id.indexOf("org.freedesktop.udisks.") == 0
-      )) {
-        return polkit.Result.YES;
-      }
-    });
-  '';
+  imports = [ ../common/services/pipewire.nix ];
+  services.pipewire = {
+    extraConfig.pipewire."91-normalizer" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-filter-chain";
+          args = {
+            "node.description" = "Normalizer Sink";
+            "media.name" = "Normalizer Sink";
+            "filter.graph" = {
+              nodes = [
+                {
+                  type = "ladspa";
+                  name = "compressor";
+                  plugin = "${pkgs.ladspaPlugins}/lib/ladspa/sc4_1882.so";
+                  label = "sc4";
+                  control = {
+                    # see this page for info on tweaking these settings 
+                    # https://gitlab.com/echoa/pipewire-guides/-/tree/Pipewire-Filter-Chains_Normalize-Audio-and-Noise-Suppression?ref_type=heads#compressor-settings
+                    "RMS/peak" = 0;
+                    "Attack time (ms)" = 60;
+                    "Release time (ms)" = 600;
+                    "Threshold level (dB)" = -12;
+                    "Ratio (1:n)" = 12;
+                    "Knee radius (dB)" = 2;
+                    "Makeup gain (dB)" = 12;
+                  };
+                }
+                {
+                  type = "ladspa";
+                  name = "limiter";
+                  plugin = "${pkgs.ladspaPlugins}/lib/ladspa/fast_lookahead_limiter_1913.so";
+                  label = "fastLookaheadLimiter";
+                  control = {
+                    "Input gain (dB)" = 6;
+                    "Limit (dB)" = -6;
+                    "Release time (s)" = 0.8;
+                  };
+                }
+              ];
+              inputs = [
+                "compressor:Left input"
+                "compressor:Right input"
+              ];
+              links = [
+                {
+                  output = "compressor:Left output";
+                  input = "limiter:Input 1";
+                }
+                {
+                  output = "compressor:Right output";
+                  input = "limiter:Input 2";
+                }
+              ];
+              outputs = [
+                "limiter:Output 1"
+                "limiter:Output 2"
+              ];
+            };
+            "capture.props" = {
+              "node.name" = "effect_input.normalizer";
+              "media.class" = "Audio/Sink";
+              "audio.channels" = 2;
+              "audio.position" = [
+                "FL"
+                "FR"
+              ];
+            };
+            "playback.props" = {
+              "node.name" = "effect_output.normalizer";
+              "node.passive" = true;
+              "audio.channels" = 2;
+              "audio.position" = [
+                "FL"
+                "FR"
+              ];
+              "node.target" = "alsa_output.target";
+            };
+          };
+        }
+      ];
+    };
+  };
 }
