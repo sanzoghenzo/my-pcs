@@ -5,7 +5,6 @@
     ../common/base
     ../common/services/tailscale.nix
     ../common/desktop/plasma.nix
-    ../users/sanzo
     ./hardware-configuration.nix
     ./virtualization.nix
   ];

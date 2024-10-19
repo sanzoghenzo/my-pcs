@@ -10,6 +10,7 @@
     ./cleanup.nix
     ./locale.nix
     ./packages.nix
+    ../../../users/sanzo
   ];
 
   nix.settings.experimental-features = "nix-command flakes";
