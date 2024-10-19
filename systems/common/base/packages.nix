@@ -6,7 +6,6 @@
     curl
     eza
     fzf
-    neovim
     yq-go
   ];
 }
