@@ -21,9 +21,6 @@
     ];
   };
 
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-
   networking.networkmanager.enable = true;
   # firmware updates
   services.fwupd.enable = true;
@@ -36,9 +33,10 @@
     chromium
     kdrive
     esphome
+    qpwgraph
   ];
   security.chromiumSuidSandbox.enable = true;
-  # needed for kDrive appimage
+  # needed for kDrive appimage if hardened kernel is used
   security.unprivilegedUsernsClone = true;
 
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
