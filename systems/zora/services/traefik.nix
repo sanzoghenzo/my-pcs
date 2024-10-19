@@ -70,4 +70,12 @@
   systemd.services.traefik.environment = {
     CF_DNS_API_TOKEN_FILE = config.age.secrets.cloudflare-dns-api-token.path;
   };
+
+  # dynamic dns client for cloudflare
+  services.cfdyndns = {
+    enable = true;
+    email = "andrea.ghensi@gmail.com";
+    records = [ "sanzoghenzo.com" ];
+    apiTokenFile = config.age.secrets.cloudflare-dns-api-token.path;
+  };
 }
