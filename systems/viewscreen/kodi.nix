@@ -1,9 +1,12 @@
 { config, pkgs, ... }:
+let
+  kodi-py311 = pkgs.kodi-gbm.override { python3Packages = pkgs.python311Packages; };
+in
 {
   services.kodi = {
     enable = true;
     openFirewall = true;
-    package = pkgs.kodi-gbm.withPackages (p: [
+    package = kodi-py311.withPackages (p: [
       # video
       p.a4ksubtitles
       p.formula1
