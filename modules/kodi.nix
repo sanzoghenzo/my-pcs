@@ -346,15 +346,10 @@ in
       ];
       conflicts = [ "getty@tty.service" ];
       serviceConfig = {
-        # User = cfg.user;
-        # Group = cfg.group;
         TTYPath = "/dev/tty1";
         ExecStart = "${cfg.package}/bin/kodi-standalone";
         Restart = "on-failure";
         TimeoutSec = 15;
-        # StandardOutput= "syslog";
-        # StandardError= "syslog";
-        # SyslogIdentifier= "kodi";
       };
       environment.KODI_DATA = cfg.dataDir;
     };

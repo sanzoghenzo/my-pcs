@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/kodi.nix
     ./kodi.nix
+    ./spotifyd.nix
     ./acestream.nix
     # ./hyperion.nix
     ../common/base
