@@ -38,8 +38,10 @@ tasks:
     internal: true
     deps: [stage]
     cmds:
-      - nix build .#vms.{{.TARGET}}
+      - nix build .#nixosConfigurations.{{.TARGET}}.config.system.build.vm
       - ./result/bin/run-{{.TARGET}}-vm
+    env:
+      QEMU_NET_OPTS: hostfwd=tcp::2221-:22
 
   vm:viewscreen:
     desc: Deploy viewscreen in a virtual machine

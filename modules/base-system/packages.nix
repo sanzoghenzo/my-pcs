@@ -6,6 +6,9 @@
     curl
     eza
     fzf
-    yq-go
   ];
+  programs = {
+    thefuck.enable = true;
+    # TODO: starship
+  };
 }

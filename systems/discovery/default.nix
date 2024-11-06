@@ -2,12 +2,12 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../common/base
     ../common/services/tailscale.nix
     ../common/desktop/plasma.nix
-    ./hardware-configuration.nix
     ./virtualization.nix
   ];
+
+  hostname = "discovery";
 
   # nvidia/opengl
   hardware.nvidia.modesetting.enable = true;
@@ -22,6 +22,10 @@
   };
 
   networking.networkmanager.enable = true;
+
+  # spotify connect for kodi/viewscreen
+  networking.firewall.allowedUDPPorts = [ 5353 ];
+
   # firmware updates
   services.fwupd.enable = true;
 
@@ -29,10 +33,6 @@
 
   environment.systemPackages = with pkgs; [
     libsmbios # dell fan control
-    onlyoffice-bin
-    chromium
-    kdrive
-    esphome
     qpwgraph
   ];
   security.chromiumSuidSandbox.enable = true;
