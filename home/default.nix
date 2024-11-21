@@ -67,6 +67,7 @@ in
         lib.optionals cfg.development [
           devbox
           yq-go
+          fabric-ai
         ]
         ++ lib.optionals cfg.desktop [
           anytype

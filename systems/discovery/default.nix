@@ -5,7 +5,6 @@
     ../common/services/tailscale.nix
     ../common/desktop/plasma.nix
     ./virtualization.nix
-    ./development.nix
   ];
 
   hostname = "discovery";
