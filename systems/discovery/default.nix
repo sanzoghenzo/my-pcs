@@ -5,12 +5,12 @@
     ../common/services/tailscale.nix
     ../common/desktop/plasma.nix
     ./virtualization.nix
+    ./development.nix
   ];
 
   hostname = "discovery";
 
   # nvidia/opengl
-  hardware.nvidia.modesetting.enable = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;

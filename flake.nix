@@ -71,7 +71,7 @@
       nixosConfigurations = {
         discovery = mkSystem [
           ./systems/discovery
-          nixos-hardware.nixosModules.dell-xps-15-9560-intel
+          nixos-hardware.nixosModules.dell-xps-15-9560-nvidia
           home-manager.nixosModules.home-manager
           {
             home-manager = {
