@@ -26,7 +26,7 @@
   # spotify connect for kodi/viewscreen
   networking.firewall.allowedUDPPorts = [ 5353 ];
 
-  homeRodMod = {
+  homeRowMod = {
     enable = true;
     devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
   };
