@@ -28,6 +28,7 @@ in
     virtualisation.vmVariant = {
       virtualisation = {
         memorySize = 4096;
+        diskSize = 10240;
         cores = 4;
         graphics = lib.mkDefault false;
         forwardPorts = [
