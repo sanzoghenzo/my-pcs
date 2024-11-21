@@ -33,6 +33,7 @@ in
           "users"
           "video"
           "wheel"
+          "dialout"
         ]
         ++ ifExists [
           "docker"
