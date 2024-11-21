@@ -1,16 +1,16 @@
 # Enable home row mode on the laptop keyboard
 { config, lib, ... }:
-let 
+let
   cfg = config.homeRowMod;
-in 
+in
 {
   options.homeRowMod = {
     enable = lib.mkEnableOption "homeRodMod";
     devices = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "list of keyboard devices to apply the home row mod to";
-    }
-  }
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     services.kanata = {
