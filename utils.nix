@@ -17,7 +17,8 @@
     };
 
   mkDeploy = name: {
-    sshUser = "root";
+    sshUser = "sanzo";
+    interactiveSudo = true;
     hostname = name;
     profiles.system = {
       user = "root";
