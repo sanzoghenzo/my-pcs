@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.user;
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
@@ -42,7 +47,9 @@ in
           "libvirtd"
         ];
       openssh.authorizedKeys.keys = [ cfg.publicKey ];
+      shell = pkgs.nushell;
     };
+    nix.settings.trusted-users = [ "${cfg.name}" ];
 
     # Create dirs for home-manager
     systemd.tmpfiles.rules = lib.mkIf (cfg.name != null) [
