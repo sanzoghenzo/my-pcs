@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -19,6 +19,10 @@
       pkgs.libvdpau-va-gl
     ];
   };
+
+  # avoid boot slowdown
+  systemd.tpm2.enable = lib.mkForce false;
+  boot.initrd.systemd.tpm2.enable = lib.mkForce false;
 
   networking.networkmanager.enable = true;
 
