@@ -198,6 +198,9 @@ in
       vscode.enable = cfg.desktop && cfg.development;
       mpv.enable = cfg.desktop;
       chromium.enable = cfg.desktop;
+      foot = {
+        enable = cfg.desktop;
+      };
     };
     services.keybase.enable = cfg.desktop;
     services.kbfs.enable = true;
