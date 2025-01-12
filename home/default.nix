@@ -165,6 +165,10 @@ in
             hostname = "192.168.1.225";
             identityFile = cfg.identityFile;
           };
+          modem = {
+            hostname = "192.168.1.1";
+            user = "root";
+          };
           "gitlab.com" = {
             identityFile = cfg.identityFile;
           };
