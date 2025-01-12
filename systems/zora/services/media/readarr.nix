@@ -1,17 +1,19 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.readarr = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    services.readarr = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "readarr";
+    proxiedServices.readarr = {
       port = 8787;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+  };
   # services.readarr.dataDir + config.xml
 }

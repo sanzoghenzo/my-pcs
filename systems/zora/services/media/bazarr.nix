@@ -1,18 +1,23 @@
-{ config, ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.bazarr = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    services.bazarr = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "bazarr";
+    proxiedServices.bazarr = {
       port = config.services.bazarr.listenPort;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+
+    # https://dietpi.com/forum/t/a-stop-job-is-running-for-bazarr-dietpi-when-shutting-down-the-system/19610/10
+    systemd.services.bazarr.serviceConfig.KillSignal = "SIGINT";
+  };
 
   # /var/lib/${config.systemd.services.bazarr.serviceConfig.StateDirectory} + config.ini
   # config.ini

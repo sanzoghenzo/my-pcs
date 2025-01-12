@@ -1,17 +1,19 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  # TODO: replace with prowlarr?
-  services.jackett = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    # TODO: replace with prowlarr?
+    services.jackett = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "jackett";
+    proxiedServices.jackett = {
       port = 9117;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+  };
 }

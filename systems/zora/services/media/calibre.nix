@@ -1,25 +1,22 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
-  # TODO: make this a parameter
-  mediaDir = "/data/media";
-  booksDir = "${mediaDir}/books";
+  cfg = config.mediaServer;
 in
 {
-  services.calibre-web = {
-    enable = true;
-    group = group;
-    options = {
-      calibreLibrary = booksDir;
-      enableBookUploading = true;
+  config = lib.mkIf cfg.enable {
+    services.calibre-web = {
+      enable = cfg.enable;
+      group = cfg.group;
+      options = {
+        calibreLibrary = cfg.booksDir;
+        enableBookUploading = true;
+      };
+      listen.ip = "0.0.0.0";
+      openFirewall = cfg.openPorts;
     };
-    listen.ip = "0.0.0.0";
-  };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "books";
+    proxiedServices.books = {
       port = config.services.calibre-web.listen.port;
-      cert = "staging";
-    })
-  ];
+    };
+  };
 }

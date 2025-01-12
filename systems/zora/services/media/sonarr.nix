@@ -1,19 +1,20 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.sonarr = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    services.sonarr = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "sonarr";
+    proxiedServices.sonarr = {
       port = 8989;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
-
+    };
+  };
   # services.sonarr.dataDir + config.xml
   # <Config>
   #   <LogLevel>info</LogLevel>

@@ -30,21 +30,15 @@
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/disk/by-partlabel/disk-main-root";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
+    device = "/dev/disk/by-partlabel/disk-main-ESP";
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-label/swap";
-    }
-  ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = true;
 }

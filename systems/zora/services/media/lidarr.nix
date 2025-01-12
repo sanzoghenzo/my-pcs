@@ -1,17 +1,18 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.lidarr = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    services.lidarr = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "lidarr";
+    proxiedServices.lidarr = {
       port = 8686;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
-  # services.lidarr.dataDir
+    };
+  };
 }

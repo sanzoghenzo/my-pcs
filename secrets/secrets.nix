@@ -5,11 +5,11 @@ let
   zora = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtqAa3TTR+zsI1vsxiVWFu0SRwE4YR7My59xHraDaF3";
   discovery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINYAMGKshjm30S4czHhN5jsUZxopIkAuPDeLsTEmNDeh";
   holodeck = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF9Svaqviz1qcsZtCPWcWdG9DejtecEBdz+KgYjYF54q";
-  zora-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHov3C1A2ZKSurkAGgLLLzvkFq1ntabQ0BaVDRQODMuQ";
+  zora-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIACLEeXGQSxewpUJeAFq+8TSH6c85EZI96zBi4Kq855P";
   systems = [
     zora
     discovery
-    zora-vm
+    holodeck
   ];
 
   media-services = [
@@ -25,5 +25,24 @@ in
     zora
     zora-vm
   ];
+  "ddns-updater-config.age".publicKeys = [
+    zora
+    sanzo
+  ];
   "deluge-auth.age".publicKeys = media-services;
+  "restic-repo.age".publicKeys = [ sanzo ] ++ systems;
+  "restic-env.age".publicKeys = [ sanzo ] ++ systems;
+  "restic-password.age".publicKeys = [ sanzo ] ++ systems;
+  "mosquitto-root-password.age".publicKeys = [
+    sanzo
+    zora
+  ];
+  "z2m-mqtt-secrets.age".publicKeys = [
+    sanzo
+    zora
+  ];
+  "ntfy-token.age".publicKeys = [
+    sanzo
+    zora
+  ];
 }

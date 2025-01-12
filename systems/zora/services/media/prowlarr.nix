@@ -1,13 +1,15 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.prowlarr.enable = true;
+  config = lib.mkIf cfg.enable {
+    services.prowlarr.enable = cfg.enable;
+    services.prowlarr.openFirewall = cfg.openPorts;
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "prowlarr";
+    proxiedServices.prowlarr = {
       port = 9696;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+  };
 }

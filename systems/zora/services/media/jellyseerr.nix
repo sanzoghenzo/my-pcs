@@ -1,15 +1,16 @@
-{ config, ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.jellyseerr.enable = true;
+  config = lib.mkIf cfg.enable {
+    services.jellyseerr.enable = cfg.enable;
+    services.jellyseerr.openFirewall = cfg.openPorts;
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "wanted";
+    proxiedServices.wanted = {
       port = config.services.jellyseerr.port;
-      cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+  };
 
   # /var/lib/jellyseerr/settings.json
   # {

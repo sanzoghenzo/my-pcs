@@ -1,9 +1,14 @@
 { ... }:
 {
   imports = [
-    ./traefik.nix
-    ./adguard.nix
+    ./web-infra
     ./media
-    ./smart-home.nix
+    ./smart-home
+    ./monitoring
+    ./pkm.nix
+    ./expose-holodeck-services.nix
+    ./ntfy.nix
   ];
+
+  system.stateVersion = "23.11";
 }

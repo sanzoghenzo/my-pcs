@@ -1,18 +1,20 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.mediaServer;
+in
 {
-  services.radarr = {
-    enable = true;
-    group = "multimedia";
-  };
+  config = lib.mkIf cfg.enable {
+    services.radarr = {
+      enable = cfg.enable;
+      group = cfg.group;
+      openFirewall = cfg.openPorts;
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "radarr";
+    proxiedServices.radarr = {
       port = 7878;
       cert = "staging";
-    })
-  ];
-  # TODO: dns
+    };
+  };
 
   # services.radarr.dataDir + config.xml
   # <Config>

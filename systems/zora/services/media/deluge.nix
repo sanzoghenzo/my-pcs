@@ -1,34 +1,34 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
-  # TODO: use argument
-  mediaDir = "/data/media";
-  downloadsDir = "${mediaDir}/downloads";
+  cfg = config.mediaServer;
 in
 {
-  services.deluge = {
-    enable = true;
-    group = "multimedia";
-    web.enable = true;
-    declarative = true;
-    config = {
-      enabled_plugins = [ "Label" ];
-      download_location = downloadsDir;
+  config = lib.mkIf cfg.enable {
+    services.deluge = {
+      enable = cfg.enable;
+      group = cfg.group;
+      web.enable = true;
+      web.openFirewall = cfg.openPorts;
+      declarative = true;
+      config = {
+        enabled_plugins = [ "Label" ];
+        download_location = cfg.downloadsDir;
+      };
+
+      # TODO: this gets ignored
+      authFile = config.age.secrets.deluge-auth.path;
     };
-    authFile = config.age.secrets.deluge-auth.path;
-  };
 
-  age.secrets.deluge-auth = {
-    file = ../../../../secrets/deluge-auth.age;
-    owner = "deluge";
-    group = "multimedia";
-    mode = "440";
-  };
+    age.secrets.deluge-auth = {
+      file = ../../../../secrets/deluge-auth.age;
+      owner = "deluge";
+      group = cfg.group;
+      mode = "440";
+    };
 
-  imports = [
-    (import ../expose-service.nix {
-      name = "torrent";
+    proxiedServices.torrent = {
       port = config.services.deluge.web.port;
       cert = "staging";
-    })
-  ];
+    };
+  };
 }
