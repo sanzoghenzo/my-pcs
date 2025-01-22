@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./pipewire.nix
     ./kodi.nix
     ./spotifyd.nix
     ./acestream.nix
