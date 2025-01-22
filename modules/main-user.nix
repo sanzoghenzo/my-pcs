@@ -49,7 +49,7 @@ in
       openssh.authorizedKeys.keys = [ cfg.publicKey ];
       shell = pkgs.nushell;
     };
-    nix.settings.trusted-users = [ "${cfg.name}" ];
+    nix.settings.trusted-users = [ cfg.name ];
 
     # Create dirs for home-manager
     systemd.tmpfiles.rules = lib.mkIf (cfg.name != null) [

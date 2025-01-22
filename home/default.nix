@@ -69,7 +69,7 @@ in
         lib.optionals cfg.development [
           devbox
           yq-go
-          fabric-ai
+          uv
         ]
         ++ lib.optionals cfg.desktop [
           anytype
@@ -78,6 +78,9 @@ in
           qbittorrent
           onlyoffice-bin
           spotify
+        ]
+        ++ lib.optionals (cfg.desktop && cfg.development) [
+          mqtt-explorer
         ];
     };
 
@@ -117,12 +120,12 @@ in
                 # set to false to prevent nushell looking into $env.PATH to find more suggestions
                 enable: true 
                 # set to lower can improve completion performance at the cost of omitting some options
-                max_results: 100 
+                max_results: 100
                 completer: $carapace_completer # check 'carapace_completer' 
               }
             }
-          } 
-          $env.PATH = ($env.PATH | 
+          }
+          $env.PATH = ($env.PATH |
             split row (char esep) |
             prepend /home/${cfg.name}/.apps |
             append /usr/bin/env
