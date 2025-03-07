@@ -34,6 +34,11 @@ tasks:
     deps: [stage]
     cmds: [deploy .#zora]
 
+  holodeck:
+    desc: Deploy holodeck (media server)
+    deps: [stage]
+    cmds: [deploy .#holodeck]
+
   vm:
     internal: true
     deps: [stage]
