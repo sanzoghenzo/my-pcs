@@ -67,6 +67,7 @@ in {
           devbox
           yq-go
           uv
+          ollama-cuda
         ]
         ++ lib.optionals cfg.desktop [
           anytype
