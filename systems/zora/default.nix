@@ -14,11 +14,10 @@
 
   hostname = "zora";
   baseServer.enable = true;
-  mediaServer.enable = true;
   webInfra.enable = true;
-  # remove once I got the dns and proxy working
-  mediaServer.openPorts = true;
   monitoring.enable = false;
+  mediaServer.enable = true;
+  mediaServer.openPorts = true;
   virtualisation.podman.defaultNetwork.settings.dns_enabled = lib.mkForce false;
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 

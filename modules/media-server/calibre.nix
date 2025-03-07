@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.mediaServer;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.mediaServer;
+in {
   config = lib.mkIf cfg.enable {
     services.calibre-web = {
       enable = cfg.enable;
@@ -13,10 +15,6 @@ in
       };
       listen.ip = "0.0.0.0";
       openFirewall = cfg.openPorts;
-    };
-
-    proxiedServices.books = {
-      port = config.services.calibre-web.listen.port;
     };
   };
 }

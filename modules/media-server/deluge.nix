@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.mediaServer;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.mediaServer;
+in {
   config = lib.mkIf cfg.enable {
     services.deluge = {
       enable = cfg.enable;
@@ -11,7 +13,7 @@ in
       web.openFirewall = cfg.openPorts;
       declarative = true;
       config = {
-        enabled_plugins = [ "Label" ];
+        enabled_plugins = ["Label"];
         download_location = cfg.downloadsDir;
       };
 
@@ -20,15 +22,10 @@ in
     };
 
     age.secrets.deluge-auth = {
-      file = ../../../../secrets/deluge-auth.age;
+      file = ../../secrets/deluge-auth.age;
       owner = "deluge";
       group = cfg.group;
       mode = "440";
-    };
-
-    proxiedServices.torrent = {
-      port = config.services.deluge.web.port;
-      cert = "staging";
     };
   };
 }

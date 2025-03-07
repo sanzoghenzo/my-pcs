@@ -1,11 +1,10 @@
 {...}: {
   imports = [
     ./web-infra
-    ./media
     ./smart-home
     ./monitoring
     ./pkm.nix
-    ./expose-holodeck-services.nix
+    ./expose-services.nix
     ./ntfy.nix
   ];
 

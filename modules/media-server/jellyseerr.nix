@@ -1,15 +1,13 @@
-{ config, lib, ... }:
-let
-  cfg = config.mediaServer;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.mediaServer;
+in {
   config = lib.mkIf cfg.enable {
     services.jellyseerr.enable = cfg.enable;
     services.jellyseerr.openFirewall = cfg.openPorts;
-
-    proxiedServices.wanted = {
-      port = config.services.jellyseerr.port;
-    };
   };
 
   # /var/lib/jellyseerr/settings.json

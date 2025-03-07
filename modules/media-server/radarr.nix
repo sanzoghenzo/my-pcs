@@ -1,18 +1,15 @@
-{ config, lib, ... }:
-let
-  cfg = config.mediaServer;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.mediaServer;
+in {
   config = lib.mkIf cfg.enable {
     services.radarr = {
       enable = cfg.enable;
       group = cfg.group;
       openFirewall = cfg.openPorts;
-    };
-
-    proxiedServices.radarr = {
-      port = 7878;
-      cert = "staging";
     };
   };
 

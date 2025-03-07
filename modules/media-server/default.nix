@@ -3,11 +3,9 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.mediaServer;
-in
-{
+in {
   options.mediaServer = {
     enable = lib.mkEnableOption "mediaServer";
 
@@ -58,7 +56,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users.groups = lib.mkIf (cfg.group == "multimedia") {
-      multimedia = { };
+      multimedia = {};
     };
 
     systemd.tmpfiles.rules = [
