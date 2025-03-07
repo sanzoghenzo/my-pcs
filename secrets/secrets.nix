@@ -4,7 +4,7 @@ let
 
   zora = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtqAa3TTR+zsI1vsxiVWFu0SRwE4YR7My59xHraDaF3";
   discovery = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINYAMGKshjm30S4czHhN5jsUZxopIkAuPDeLsTEmNDeh";
-  holodeck = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF9Svaqviz1qcsZtCPWcWdG9DejtecEBdz+KgYjYF54q";
+  holodeck = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID1yN40cw6vj3iGb1QbJ2F2UDsnE2X2/06Mll4Uij5iR";
   zora-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIACLEeXGQSxewpUJeAFq+8TSH6c85EZI96zBi4Kq855P";
   systems = [
     zora
@@ -23,10 +23,6 @@ in {
     sanzo
     zora
     zora-vm
-  ];
-  "ddns-updater-config.age".publicKeys = [
-    zora
-    sanzo
   ];
   "deluge-auth.age".publicKeys = media-services;
   "restic-repo.age".publicKeys = [sanzo] ++ systems;
