@@ -3,11 +3,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config;
-in
-{
+in {
   imports = [
     ./boot.nix
     ./locale.nix

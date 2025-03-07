@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  imports = [ ../common/services/pipewire.nix ];
+{pkgs, ...}: {
+  imports = [../common/services/pipewire.nix];
 
   hardware.bluetooth = {
     enable = true;
@@ -18,7 +17,7 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.ladspaPlugins ];
+  environment.systemPackages = [pkgs.ladspaPlugins];
   services.pipewire = {
     extraConfig.pipewire."91-normalizer" = {
       "context.modules" = [
@@ -35,7 +34,7 @@
                   plugin = "${pkgs.ladspaPlugins}/lib/ladspa/sc4_1882.so";
                   label = "sc4";
                   control = {
-                    # see this page for info on tweaking these settings 
+                    # see this page for info on tweaking these settings
                     # https://gitlab.com/echoa/pipewire-guides/-/tree/Pipewire-Filter-Chains_Normalize-Audio-and-Noise-Suppression?ref_type=heads#compressor-settings
                     "RMS/peak" = 0;
                     "Attack time (ms)" = 60;
@@ -104,7 +103,7 @@
       "bluez5.enable-sbc-xq" = true;
       "bluez5.enable-msbc" = false;
       "bluez5.enable-hw-volume" = true;
-      "bluez5.auto-connect" = [ "a2dp_sink" ];
+      "bluez5.auto-connect" = ["a2dp_sink"];
       "bluez5.roles" = [
         "a2dp_sink"
         "a2dp_source"

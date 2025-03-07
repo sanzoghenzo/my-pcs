@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  environment.systemPackages = [ pkgs.hyperion-ng ];
+{pkgs, ...}: {
+  environment.systemPackages = [pkgs.hyperion-ng];
   networking.firewall = {
     allowedTCPPorts = [
       8090
@@ -11,12 +10,12 @@
     enable = true;
     description = "Hyperion ambient light";
     unitConfig = {
-      Wants = [ "network-online.target" ];
+      Wants = ["network-online.target"];
       After = [
         "network-online.target"
         "systemd-resolved.service"
       ];
-      Requisite = [ "network.target" ];
+      Requisite = ["network.target"];
     };
     serviceConfig = {
       ExecStart = "${pkgs.hyperion-ng}/bin/hyperiond";
@@ -27,6 +26,6 @@
       # Restart=on-failure
       # RestartSec=2
     };
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 }

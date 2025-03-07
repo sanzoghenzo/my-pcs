@@ -4,7 +4,6 @@
   fetchzip,
   kodi-six,
 }:
-
 buildKodiAddon rec {
   pname = "horus";
   namespace = "script.module.horus";
@@ -19,7 +18,7 @@ buildKodiAddon rec {
       --replace "if LooseVersion(self.version) < LooseVersion('3.1.29'):" "if tuple(self.version.split('.')) < ('3', '1', '29'):"
   '';
 
-  propagatedBuildInputs = [ kodi-six ];
+  propagatedBuildInputs = [kodi-six];
 
   meta = with lib; {
     homepage = "https://github.com/gtkingbuild/Repo-GTKing";

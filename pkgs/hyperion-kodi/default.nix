@@ -6,7 +6,6 @@
   addonUpdateScript,
   protobuf-kodi,
 }:
-
 buildKodiAddon rec {
   pname = "hyperion-kodi";
   namespace = "script.service.hyperion";

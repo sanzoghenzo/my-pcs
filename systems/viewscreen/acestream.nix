@@ -3,7 +3,7 @@ _: {
     acestream-engine = {
       image = "vstavrinov/acestream-engine";
       autoStart = true;
-      ports = [ "6878:6878" ];
+      ports = ["6878:6878"];
     };
   };
 }

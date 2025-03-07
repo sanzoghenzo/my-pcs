@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 # let
 #   inherit (pkgs.libretro) mame2003-plus parallel-n64;
 # in

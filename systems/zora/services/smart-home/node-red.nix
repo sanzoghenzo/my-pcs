@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   # nodeRedPackages = [
   #   "@flowfuse/node-red-dashboard"
   #   "@node-red-contrib-themes/theme-collection"
@@ -23,24 +22,23 @@ let
   # https://discourse.nixos.org/t/how-to-make-additional-package-available-to-the-service/17007/5
   myNodeRed =
     pkgs.runCommand "node-red"
-      {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
-          --set PATH '${
-            lib.makeBinPath [
-              pkgs.git
-              pkgs.openssh
-              pkgs.nodePackages.npm
-              pkgs.gcc
-              pkgs.unixtools.arp
-            ]
-          }:$PATH' \
-      '';
-in
-{
+    {
+      nativeBuildInputs = [pkgs.makeWrapper];
+    }
+    ''
+      mkdir -p $out/bin
+      makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
+        --set PATH '${
+        lib.makeBinPath [
+          pkgs.git
+          pkgs.openssh
+          pkgs.nodePackages.npm
+          pkgs.gcc
+          pkgs.unixtools.arp
+        ]
+      }:$PATH' \
+    '';
+in {
   services.node-red = {
     enable = true;
     package = myNodeRed;

@@ -19,10 +19,7 @@
   xorg,
   zlib,
 }:
-
-with lib;
-
-let
+with lib; let
   pname = "kDrive";
   version = "3.6.1.20240604";
 
@@ -51,11 +48,11 @@ let
     homepage = "https://www.infomaniak.com/kdrive";
     license = licenses.gpl3Plus;
     platforms = builtins.attrNames srcs;
-    maintainers = [ maintainers.nicolas-goudry ];
+    maintainers = [maintainers.nicolas-goudry];
     mainProgram = "kDrive";
   };
 
-  contents = appimageTools.extract { inherit pname version src; };
+  contents = appimageTools.extract {inherit pname version src;};
 
   linux = stdenv.mkDerivation rec {
     inherit
@@ -71,8 +68,8 @@ let
     # Avoid auto-wrap to set rpath
     dontWrapQtApps = true;
 
-    buildInputs = [ qt6.qtbase ];
-    nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+    buildInputs = [qt6.qtbase];
+    nativeBuildInputs = [qt6.wrapQtAppsHook];
     libPath = makeLibraryPath [
       alsa-lib
       e2fsprogs
@@ -161,4 +158,6 @@ let
     '';
   };
 in
-if stdenv.isDarwin then darwin else linux
+  if stdenv.isDarwin
+  then darwin
+  else linux

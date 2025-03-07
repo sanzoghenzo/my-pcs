@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   serviceType = lib.types.submodule {
     options = {
       domain = lib.mkOption {
@@ -28,7 +31,7 @@ let
         description = ''
           Certificate resolver to use.
           Can be "staging" or "production".
-          Set it to staging during the initial tests. 
+          Set it to staging during the initial tests.
         '';
         default = "production";
       };
@@ -51,8 +54,7 @@ let
     };
   };
   cfg = config.proxiedServices;
-in
-{
+in {
   options.proxiedServices = lib.mkOption {
     type = lib.types.attrsOf serviceType;
     description = ''
@@ -62,23 +64,37 @@ in
 
   config = {
     services.traefik.dynamicConfigOptions.http = {
-      routers = lib.mapAttrs (name: svc: {
-        rule = "Host(`${name}.${svc.domain}`)";
-        tls.certResolver = svc.cert;
-        service = name;
-      }) cfg;
-      services = lib.mapAttrs (name: svc: {
-        loadBalancer.servers = [
-          { url = "http${if svc.secure then "s" else ""}://${svc.targetHost}:${builtins.toString svc.port}"; }
-        ];
-      }) cfg;
+      routers =
+        lib.mapAttrs
+        (name: svc: {
+          rule = "Host(`${name}.${svc.domain}`)";
+          tls.certResolver = svc.cert;
+          service = name;
+        })
+        cfg;
+      services =
+        lib.mapAttrs
+        (name: svc: {
+          loadBalancer.servers = [
+            {
+              url = "http${
+                if svc.secure
+                then "s"
+                else ""
+              }://${svc.targetHost}:${builtins.toString svc.port}";
+            }
+          ];
+        })
+        cfg;
     };
     services.adguardhome.settings.filtering.rewrites = lib.attrValues (
-      lib.mapAttrs (name: svc: {
+      lib.mapAttrs
+      (name: svc: {
         domain = "${name}.${svc.domain}";
         answer = svc.targetIp;
         # answer = "${svc.lanHostname}.lan";
-      }) cfg
+      })
+      cfg
     );
   };
 }

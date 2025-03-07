@@ -1,11 +1,13 @@
-{ config, lib, ... }:
-let
-  cfg = config.baseServer;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.baseServer;
+in {
   options.baseServer = {
     enable = lib.mkEnableOption "baseServer";
-    # wol = lib.mkOption 
+    # wol = lib.mkOption
   };
 
   config = lib.mkIf cfg.enable {
@@ -41,7 +43,7 @@ in
       };
       users.users.root.password = "test";
       services.resolved.extraConfig = lib.mkForce "";
-      networking.wg-quick.interfaces = lib.mkForce { };
+      networking.wg-quick.interfaces = lib.mkForce {};
     };
     # endregion
   };

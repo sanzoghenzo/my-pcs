@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # TODO: evaluate nixvirt
   # https://flakehub.com/flake/AshleyYakeley/NixVirt
 

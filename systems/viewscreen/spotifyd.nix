@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   zeroconf_port = 10001;
   globalCfg = {
     backend = "pulseaudio";
@@ -15,15 +18,14 @@ let
     use_keyring = false;
     initial_volume = "50";
   };
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
   spotifydConf = toml.generate "spotify.conf" {
     global = globalCfg;
   };
-in
-{
+in {
   systemd.user.services.spotifyd = {
     description = "spotifyd, a Spotify playing daemon";
-    wantedBy = [ "default.target" ];
+    wantedBy = ["default.target"];
     wants = [
       "network-online.target"
       "sound.target"
@@ -42,7 +44,7 @@ in
   };
 
   networking.firewall = {
-    allowedUDPPorts = [ 5353 ]; # mDNS
-    allowedTCPPorts = [ zeroconf_port ];
+    allowedUDPPorts = [5353]; # mDNS
+    allowedTCPPorts = [zeroconf_port];
   };
 }

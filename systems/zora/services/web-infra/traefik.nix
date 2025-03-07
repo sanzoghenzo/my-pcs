@@ -3,13 +3,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.webInfra;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
-
     services.traefik = {
       enable = true;
       staticConfigOptions = {

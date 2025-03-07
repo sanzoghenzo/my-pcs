@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.webInfra;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.webInfra;
+in {
   config = lib.mkIf cfg.enable {
     services.traefik.staticConfigOptions = {
       # certificatesResolvers.tailscale.tailscale = {};

@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   age.secrets.z2m-mqtt-secrets = {
     file = ../../../../secrets/z2m-mqtt-secrets.age;
     name = "z2m-mqtt-secrets.yaml";
@@ -18,7 +17,7 @@
       };
       advanced = {
         network_key = "GENERATE";
-        log_output = [ "console" ];
+        log_output = ["console"];
         log_namespaced_levels."z2m:mqtt" = "warning";
       };
       serial.port = "/dev/ttyACM0";

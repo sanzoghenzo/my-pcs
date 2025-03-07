@@ -8,8 +8,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.kodi;
 
   stylesheetCommonHeader = ''
@@ -86,58 +85,50 @@ let
     </xsl:template>
   '';
 
-  attrsetToXml =
-    attrs: name: stylesheet:
+  attrsetToXml = attrs: name: stylesheet:
     pkgs.runCommand name
-      {
-        # Package splicing for libxslt does not work correctly leading to errors
-        # when cross-compiling. Use the version from buildPackages explicitly to
-        # fix this.
-        nativeBuildInputs = [ pkgs.buildPackages.libxslt.bin ];
-        xml = builtins.toXML attrs;
-        passAsFile = [ "xml" ];
-      }
-      ''
-        xsltproc ${stylesheet} - < "$xmlPath" > "$out"
-      '';
+    {
+      # Package splicing for libxslt does not work correctly leading to errors
+      # when cross-compiling. Use the version from buildPackages explicitly to
+      # fix this.
+      nativeBuildInputs = [pkgs.buildPackages.libxslt.bin];
+      xml = builtins.toXML attrs;
+      passAsFile = ["xml"];
+    }
+    ''
+      xsltproc ${stylesheet} - < "$xmlPath" > "$out"
+    '';
 
-  attrsetToAdvancedSettingsXml =
-    attrs: name:
-    let
-      stylesheet = builtins.toFile "stylesheet.xsl" ''
-        ${stylesheetCommonHeader}
-        ${stylesheetAdvancedSettingsRootTag}
-        ${stylesheetNestedTags}
-        ${stylesheetCommonFooter}
-      '';
-    in
+  attrsetToAdvancedSettingsXml = attrs: name: let
+    stylesheet = builtins.toFile "stylesheet.xsl" ''
+      ${stylesheetCommonHeader}
+      ${stylesheetAdvancedSettingsRootTag}
+      ${stylesheetNestedTags}
+      ${stylesheetCommonFooter}
+    '';
+  in
     attrsetToXml attrs name stylesheet;
 
-  attrsetToSourcesXml =
-    attrs: name:
-    let
-      stylesheet = builtins.toFile "stylesheet.xsl" ''
-        ${stylesheetCommonHeader}
-        ${stylesheetSourcesRootTag}
-        ${stylesheetNestedTags}
-        ${stylesheetCommonFooter}
-      '';
-    in
+  attrsetToSourcesXml = attrs: name: let
+    stylesheet = builtins.toFile "stylesheet.xsl" ''
+      ${stylesheetCommonHeader}
+      ${stylesheetSourcesRootTag}
+      ${stylesheetNestedTags}
+      ${stylesheetCommonFooter}
+    '';
+  in
     attrsetToXml attrs name stylesheet;
 
-  attrsetToAddonSettingsXml =
-    attrs: name:
-    let
-      stylesheet = builtins.toFile "stylesheet.xsl" ''
-        ${stylesheetCommonHeader}
-        ${stylesheetAddonSettingsRootTag}
-        ${stylesheetTagsAsSettingWithId}
-        ${stylesheetCommonFooter}
-      '';
-    in
+  attrsetToAddonSettingsXml = attrs: name: let
+    stylesheet = builtins.toFile "stylesheet.xsl" ''
+      ${stylesheetCommonHeader}
+      ${stylesheetAddonSettingsRootTag}
+      ${stylesheetTagsAsSettingWithId}
+      ${stylesheetCommonFooter}
+    '';
+  in
     attrsetToXml attrs name stylesheet;
-in
-{
+in {
   options.services.kodi = {
     enable = lib.mkEnableOption "kodi";
 
@@ -178,20 +169,18 @@ in
     };
 
     settings = lib.mkOption {
-      type =
-        with lib.types;
-        let
-          valueType =
-            oneOf [
-              str
-              int
-              bool
-              (attrsOf valueType)
-            ]
-            // {
-              description = "attribute sets";
-            };
-        in
+      type = with lib.types; let
+        valueType =
+          oneOf [
+            str
+            int
+            bool
+            (attrsOf valueType)
+          ]
+          // {
+            description = "attribute sets";
+          };
+      in
         nullOr valueType;
       default = null;
       example = lib.literalExpression ''
@@ -208,21 +197,19 @@ in
     };
 
     sources = lib.mkOption {
-      type =
-        with lib.types;
-        let
-          valueType =
-            oneOf [
-              str
-              int
-              bool
-              (attrsOf valueType)
-              (listOf valueType)
-            ]
-            // {
-              description = "attribute sets or lists";
-            };
-        in
+      type = with lib.types; let
+        valueType =
+          oneOf [
+            str
+            int
+            bool
+            (attrsOf valueType)
+            (listOf valueType)
+          ]
+          // {
+            description = "attribute sets or lists";
+          };
+      in
         nullOr valueType;
       default = null;
       example = lib.literalExpression ''
@@ -250,8 +237,7 @@ in
     };
 
     addonSettings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (
           attrsOf (
             attrsOf (oneOf [
@@ -282,7 +268,7 @@ in
     ];
 
     users.groups = lib.mkIf (cfg.group == "kodi") {
-      kodi = { };
+      kodi = {};
     };
     users.users = lib.mkIf (cfg.user == "kodi") {
       kodi = {
@@ -318,18 +304,19 @@ in
       ]
       ++ lib.optionals (cfg.addonSettings != null) (
         lib.attrValues (
-          lib.mapAttrs (
-            k: v:
-            "L+ ${cfg.dataDir}/userdata/addon_data/${k}/settings.xml - - - - ${attrsetToAddonSettingsXml v "kodi-addon-${k}-settings.xml"}"
-          ) cfg.addonSettings
+          lib.mapAttrs
+          (
+            k: v: "L+ ${cfg.dataDir}/userdata/addon_data/${k}/settings.xml - - - - ${attrsetToAddonSettingsXml v "kodi-addon-${k}-settings.xml"}"
+          )
+          cfg.addonSettings
         )
       );
 
     # taken from https://github.com/graysky2/kodi-standalone-service
     systemd.user.services.kodi = {
       description = "kodi media center";
-      wantedBy = [ "default.target" ];
-      partOf = [ "default.target" ];
+      wantedBy = ["default.target"];
+      partOf = ["default.target"];
       after = [
         "remote-fs.target"
         "systemd-user-sessions.service"
@@ -344,7 +331,7 @@ in
         "polkit.service"
         "upower.service"
       ];
-      conflicts = [ "getty@tty.service" ];
+      conflicts = ["getty@tty.service"];
       serviceConfig = {
         TTYPath = "/dev/tty1";
         ExecStart = "${cfg.package}/bin/kodi-standalone";

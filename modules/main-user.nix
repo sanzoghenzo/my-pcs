@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.user;
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in
-{
+in {
   options.user = {
     name = lib.mkOption {
       type = lib.types.str;
@@ -46,10 +44,10 @@ in
           "render"
           "libvirtd"
         ];
-      openssh.authorizedKeys.keys = [ cfg.publicKey ];
+      openssh.authorizedKeys.keys = [cfg.publicKey];
       shell = pkgs.nushell;
     };
-    nix.settings.trusted-users = [ cfg.name ];
+    nix.settings.trusted-users = [cfg.name];
 
     # Create dirs for home-manager
     systemd.tmpfiles.rules = lib.mkIf (cfg.name != null) [

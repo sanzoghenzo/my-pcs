@@ -6,7 +6,6 @@
   addonUpdateScript,
   requests,
 }:
-
 buildKodiAddon rec {
   pname = "protobuf";
   namespace = "script.module.protobuf";

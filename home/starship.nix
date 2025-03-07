@@ -1,10 +1,12 @@
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   cfg = config.user;
   codeFormat = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
   codeStyle = "bg:color_blue";
-in
-{
+in {
   config.programs.starship = lib.mkIf cfg.enable {
     enable = true;
     settings = {

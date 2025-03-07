@@ -1,7 +1,6 @@
-# user configuration for development desktop system 
-{ pkgs, ... }:
-{
-  imports = [ ./default.nix ];
+# user configuration for development desktop system
+{pkgs, ...}: {
+  imports = [./default.nix];
 
   user = {
     enable = true;

@@ -1,12 +1,14 @@
-{ config, lib, ... }:
-let
-  cfg = config.webInfra;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.webInfra;
+in {
   config = lib.mkIf cfg.enable {
     networking.firewall = {
-      allowedTCPPorts = [ 53 ];
-      allowedUDPPorts = [ 53 ];
+      allowedTCPPorts = [53];
+      allowedUDPPorts = [53];
     };
 
     services.adguardhome = {
@@ -34,13 +36,13 @@ in
         language = "";
         theme = "auto";
         dns = {
-          bind_hosts = [ "0.0.0.0" ];
+          bind_hosts = ["0.0.0.0"];
           port = 53;
           anonymize_client_ip = false;
           ratelimit = 20;
           ratelimit_subnet_len_ipv4 = 24;
           ratelimit_subnet_len_ipv6 = 56;
-          ratelimit_whitelist = [ ];
+          ratelimit_whitelist = [];
           refuse_any = true;
           upstream_dns = [
             "https://1.1.1.1/dns-query"
@@ -53,11 +55,11 @@ in
             "2620:fe::10"
             "2620:fe::fe:10"
           ];
-          fallback_dns = [ ];
+          fallback_dns = [];
           upstream_mode = "load_balance";
           fastest_timeout = "1s";
-          allowed_clients = [ ];
-          disallowed_clients = [ ];
+          allowed_clients = [];
+          disallowed_clients = [];
           blocked_hosts = [
             "version.bind"
             "id.server"
@@ -71,7 +73,7 @@ in
           cache_ttl_min = 0;
           cache_ttl_max = 0;
           cache_optimistic = false;
-          bogus_nxdomain = [ ];
+          bogus_nxdomain = [];
           aaaa_disabled = false;
           enable_dnssec = false;
           edns_client_subnet = {
@@ -81,15 +83,15 @@ in
           };
           max_goroutines = 300;
           handle_ddr = true;
-          ipset = [ ];
+          ipset = [];
           ipset_file = "";
           bootstrap_prefer_ipv6 = false;
           upstream_timeout = "10s";
-          private_networks = [ ];
+          private_networks = [];
           use_private_ptr_resolvers = true;
-          local_ptr_upstreams = [ ];
+          local_ptr_upstreams = [];
           use_dns64 = false;
-          dns64_prefixes = [ ];
+          dns64_prefixes = [];
           serve_http3 = false;
           use_http3_upstreams = false;
           serve_plain_dns = true;
@@ -113,7 +115,7 @@ in
         };
         querylog = {
           dir_path = "";
-          ignored = [ ];
+          ignored = [];
           interval = "2160h";
           size_memory = 1000;
           enabled = true;
@@ -121,7 +123,7 @@ in
         };
         statistics = {
           dir_path = "";
-          ignored = [ ];
+          ignored = [];
           interval = "24h";
           enabled = true;
         };
@@ -151,8 +153,8 @@ in
             id = 4;
           }
         ];
-        whitelist_filters = [ ];
-        user_rules = [ ];
+        whitelist_filters = [];
+        user_rules = [];
         dhcp = {
           # TODO: enable and configure properly
           enabled = false;
@@ -165,7 +167,7 @@ in
             range_end = "192.168.1.210";
             lease_duration = 86400;
             icmp_timeout_msec = 1000;
-            options = [ ];
+            options = [];
           };
           dhcpv6 = {
             range_start = "";
@@ -181,7 +183,7 @@ in
             schedule = {
               time_zone = "Local";
             };
-            ids = [ ];
+            ids = [];
           };
           protection_disabled_until = null;
           safe_search = {
@@ -215,7 +217,7 @@ in
             dhcp = true;
             hosts = true;
           };
-          persistent = [ ];
+          persistent = [];
         };
         log = {
           enabled = true;

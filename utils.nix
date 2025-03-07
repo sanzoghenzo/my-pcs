@@ -3,17 +3,17 @@
   system,
   pkgs,
   deployPkgs,
-}:
-{
-  mkSystem =
-    modules:
+}: {
+  mkSystem = modules:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs.inputs = inputs;
       inherit system pkgs;
-      modules = [
-        ./modules
-        inputs.agenix.nixosModules.default
-      ] ++ modules;
+      modules =
+        [
+          ./modules
+          inputs.agenix.nixosModules.default
+        ]
+        ++ modules;
     };
 
   mkDeploy = name: {

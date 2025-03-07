@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/services/tailscale.nix

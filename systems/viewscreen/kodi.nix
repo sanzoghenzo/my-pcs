@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
-let
-
-in
 {
+  config,
+  pkgs,
+  ...
+}: let
+in {
   services.kodi = {
     enable = true;
     openFirewall = true;

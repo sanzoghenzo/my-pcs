@@ -2,21 +2,20 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
-}:
-let
+}: let
   cfg = config.webInfra;
   fqdname = "auth.${cfg.domain}";
   url = "https://${fqdname}";
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     # rauthy.cfg should have user and group 10001, mode 0600
     # data dir should have user and group 10001, mode 0700
     virtualisation.oci-containers.containers.rauthy = {
       image = "ghcr.io/sebadob/rauthy:0.27.2";
       autoStart = true;
-      ports = [ "9080:8080" ];
+      ports = ["9080:8080"];
       environment = {
         MAX_HASH_THREADS = "1";
         RP_ID = fqdname;

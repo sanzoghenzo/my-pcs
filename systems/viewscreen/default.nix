@@ -1,5 +1,8 @@
-{ pkgs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./pipewire.nix

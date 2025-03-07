@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services.pipewire = {
     enable = true;
     audio.enable = true;
@@ -25,5 +24,5 @@
     ];
   };
 
-  environment.systemPackages = [ pkgs.ncpamixer ];
+  environment.systemPackages = [pkgs.ncpamixer];
 }

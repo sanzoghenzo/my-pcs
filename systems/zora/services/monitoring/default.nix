@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.monitoring;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.monitoring;
+in {
   options.monitoring = {
     enable = lib.mkEnableOption "monitoring";
   };

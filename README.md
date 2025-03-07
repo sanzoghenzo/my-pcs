@@ -35,27 +35,47 @@ task viewscreen-vm
 At the first launch, login eith the user root and password "test", then run `reboot`.
 This will load the kodi user services and boot kodi at start.
 
+## Secrets management
+
+I'm using [agenix](https://github.com/ryantm/agenix) to store the secrets in a secure way.
+
+To add a new one:
+
+- add an entry to the `secrets/secrets.nix` with the file name and the users/groups that can read it
+- cd to the `secrets` folder and run `agenix -e <file name>` (the one specified the step above)
+- type in and save the secret. It will be encoded and 
+
 ## New system
 
-- Install NixOS
+- Install NixOS (TODO: investigate nixos-anywhere)
+- `curl -O https://github.com/sanzoghenzo.keys`
 - Edit /etc/nixos/configuration.nix to add:
 
   ```nix
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  environment.systemPackages = with pkgs; [ git ];
+  users.users.sanzo.openssh.authorizedKeys.keys = [
+    "<alt+ins to add the key from the previously downloaded files>"
+  ];
+  services.openssh.enable = true;
   ```
 
 - `sudo nixos-rebuild switch`
 
-Then you can clone the repo and enter the dev environment with `nix develop`.
+- On your main computer, add the host to the `program.ssh.matchBlocks` option in `home/default.nix` and rebuild the config (since my main pc is discovery, a `task discovery` will work fine)
+- create a new folder for the new system in the `systems` folder: `mkdir -p systems/<newname>`
+- copy over the `hardware-configuration.nix` file: `scp <newname>:/etc/hardware-configuration.nix systems/newname/`
+- create the `systems/<newname>/default.nix` file by taking inspiration from other existing systems
+- add a `<newname>` item in `nixosConfigurations` and one in `deploy.nodes` in the `flake.nix` file, following the existing ones.
+- once you have finished configuring, use `deploy <newname>` to build and deploy it to the system.
+- you can also add the task in the `Taskfile`
 
-When you're ready, apply the configuration with
+### access secrets
 
-```shell
-sudo nixos-rebuild --flake .#configName switch
-```
+- Copy the content of the `/etc/ssh/ssh_host_ed25519_key.pub` file
+- Open the `secrets\secrets.nix`
+- add a new variable with the new system name and the key (like the others)
+- add this variable to the pertaining groups and/or directly to the secrets `publikKeys`
 
-where configName is the `nixosConfiguration` that you want to use on the system.
+Finally run `agenix --rekey`
 
 ## upgrades
 

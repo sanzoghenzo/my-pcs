@@ -1,6 +1,7 @@
 rec {
   colours = rec {
-    inherit (catppuccin-macchiato)
+    inherit
+      (catppuccin-macchiato)
       pink
       red
       yellow

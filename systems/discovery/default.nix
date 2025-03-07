@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../common/services/tailscale.nix
@@ -27,11 +30,11 @@
   networking.networkmanager.enable = true;
 
   # spotify connect for kodi/viewscreen
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedUDPPorts = [5353];
 
   homeRowMod = {
     enable = true;
-    devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
+    devices = ["/dev/input/by-path/platform-i8042-serio-0-event-kbd"];
   };
 
   # firmware updates
@@ -47,7 +50,7 @@
   # needed for kDrive appimage if hardened kernel is used
   security.unprivilegedUsernsClone = true;
 
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   hardware.bluetooth.enable = true;
 }

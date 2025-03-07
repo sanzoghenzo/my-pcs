@@ -1,12 +1,14 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.webInfra;
   svcName = "ntfy";
   fqdname = "${svcName}.${cfg.domain}";
   url = "https://${fqdname}";
   port = 2586;
-in
-{
+in {
   services.ntfy-sh = {
     enable = true;
     settings = {

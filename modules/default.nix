@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./base-system
     ./base-server.nix

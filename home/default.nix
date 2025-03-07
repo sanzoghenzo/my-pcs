@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.user;
-in
-{
-  imports = [ ./starship.nix ];
+in {
+  imports = [./starship.nix];
 
   options.user = {
     enable = lib.mkEnableOption "user";
@@ -64,8 +62,7 @@ in
     home = {
       username = cfg.name;
       stateVersion = "24.05";
-      packages =
-        with pkgs;
+      packages = with pkgs;
         lib.optionals cfg.development [
           devbox
           yq-go
@@ -118,10 +115,10 @@ in
               algorithm: "fuzzy"  # prefix or fuzzy
               external: {
                 # set to false to prevent nushell looking into $env.PATH to find more suggestions
-                enable: true 
+                enable: true
                 # set to lower can improve completion performance at the cost of omitting some options
                 max_results: 100
-                completer: $carapace_completer # check 'carapace_completer' 
+                completer: $carapace_completer # check 'carapace_completer'
               }
             }
           }
@@ -206,8 +203,8 @@ in
 
     dconf.settings = lib.mkIf cfg.virtualisation {
       "org/virt-manager/virt-manager/connections" = {
-        autoconnect = [ "qemu:///system" ];
-        uris = [ "qemu:///system" ];
+        autoconnect = ["qemu:///system"];
+        uris = ["qemu:///system"];
       };
     };
   };

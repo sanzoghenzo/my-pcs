@@ -1,9 +1,11 @@
 # Enable home row mode on the laptop keyboard
-{ config, lib, ... }:
-let
-  cfg = config.homeRowMod;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.homeRowMod;
+in {
   options.homeRowMod = {
     enable = lib.mkEnableOption "homeRodMod";
     devices = lib.mkOption {

@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     ./mosquitto.nix
     ./node-red.nix

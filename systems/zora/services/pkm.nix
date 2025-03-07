@@ -3,18 +3,19 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.mediaServer;
-in
-{
+in {
   config = {
     services.silverbullet = {
       enable = true;
-      listenAddress = if cfg.openPorts then "0.0.0.0" else "127.0.0.1";
+      listenAddress =
+        if cfg.openPorts
+        then "0.0.0.0"
+        else "127.0.0.1";
       openFirewall = cfg.openPorts;
       listenPort = 3002;
-      extraArgs = [ "--user sanzo:#d5l5&VgHdmL3D55" ];
+      extraArgs = ["--user sanzo:#d5l5&VgHdmL3D55"];
     };
 
     systemd.services.silverbullet = {

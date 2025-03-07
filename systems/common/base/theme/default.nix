@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   inherit ((import ./colours.nix)) colours;
-  libx = import ./lib.nix { inherit (pkgs) lib; };
-in
-rec {
+  libx = import ./lib.nix {inherit (pkgs) lib;};
+in rec {
   inherit (libx) hexToRgb;
   inherit colours;
 

@@ -3,12 +3,10 @@
   pkgs,
   self,
   ...
-}:
-let
-  theme = import ../base/theme { inherit pkgs; };
-in
-{
-  imports = [ ../services/pipewire.nix ];
+}: let
+  theme = import ../base/theme {inherit pkgs;};
+in {
+  imports = [../services/pipewire.nix];
 
   # Enable Plymouth and surpress some logs by default.
   boot.plymouth.enable = true;
@@ -47,8 +45,8 @@ in
           "${theme.fonts.default.name}"
           "${theme.fonts.emoji.name}"
         ];
-        monospace = [ "${theme.fonts.monospace.name}" ];
-        emoji = [ "${theme.fonts.emoji.name}" ];
+        monospace = ["${theme.fonts.monospace.name}"];
+        emoji = ["${theme.fonts.emoji.name}"];
       };
     };
   };
