@@ -3,11 +3,11 @@
 #   inherit (pkgs.libretro) mame2003-plus parallel-n64;
 # in
 rec {
-  kdrive = pkgs.callPackage ./kdrive { };
-  kodi-py311 = pkgs.kodi-gbm.override { python3Packages = pkgs.python311Packages; };
-  horus = kodi-py311.packages.callPackage ./horus { };
-  protobuf-kodi = kodi-py311.packages.callPackage ./protobuf { };
-  hyperion-kodi = kodi-py311.packages.callPackage ./hyperion-kodi { };
+  kdrive = pkgs.callPackage ./kdrive {};
+  horus = pkgs.kodi-gbm.packages.callPackage ./horus {};
+  protobuf-kodi = pkgs.kodi-gbm.packages.callPackage ./protobuf {};
+  hyperion-kodi = pkgs.kodi-gbm.packages.callPackage ./hyperion-kodi {};
+  mpv-acestream = pkgs.callPackage ./mpv-acestream {};
 
   silverbullet = pkgs.silverbullet.overrideAttrs (attrs: {
     version = "0.10.1";
