@@ -6,6 +6,7 @@
     ./kodi.nix
     ./home-row-mod.nix
     ./hosts.nix
+    ./media-server
     ./backup.nix
   ];
 }
