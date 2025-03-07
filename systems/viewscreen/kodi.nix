@@ -7,7 +7,7 @@ in {
   services.kodi = {
     enable = true;
     openFirewall = true;
-    package = pkgs.kodi-py311.withPackages (p: [
+    package = pkgs.kodi-gbm.withPackages (p: [
       # video
       p.a4ksubtitles
       p.formula1
@@ -82,14 +82,5 @@ in {
       videoplayer.autoplaynextitem = "1,2";
       # videoscreen.resolution = "17";
     };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = [
-      pkgs.vaapiVdpau
-      pkgs.libvdpau-va-gl
-      pkgs.mesa.drivers
-    ];
   };
 }
