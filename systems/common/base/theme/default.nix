@@ -49,7 +49,7 @@ in rec {
     };
     monospace = {
       name = "MesloLGSDZ Nerd Font Mono";
-      package = pkgs.nerdfonts.override { fonts = [ "Meslo" ]; };
+      package = pkgs.nerd-fonts.meslo-lg;
     };
     emoji = {
       name = "OpenMoji Color";
