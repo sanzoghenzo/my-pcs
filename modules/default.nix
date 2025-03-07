@@ -5,6 +5,7 @@
     ./main-user.nix
     ./kodi.nix
     ./home-row-mod.nix
+    ./hosts.nix
     ./backup.nix
   ];
 }
