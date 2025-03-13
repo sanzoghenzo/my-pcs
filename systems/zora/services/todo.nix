@@ -9,7 +9,7 @@ in {
     settings = {
       service.timezone = "Europe/Rome";
       # TODO: setup rauthy!!!
-      # service.enableregistration = false;
+      service.enableregistration = false;
       # auth.local.enabled = false;
       # auth.openid = {
       #   enabled = true;
