@@ -116,6 +116,7 @@
         pkgs.go-task
         pkgs.helix
         pkgs.deploy-rs
+        pkgs.agenix
       ];
     };
 

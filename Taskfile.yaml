@@ -17,6 +17,7 @@ tasks:
 
   upgrade:
     desc: upgrade the package repositories
+    aliases: [update]
     cmds: [nix flake update]
 
   discovery:

@@ -43,7 +43,7 @@ To add a new one:
 
 - add an entry to the `secrets/secrets.nix` with the file name and the users/groups that can read it
 - cd to the `secrets` folder and run `agenix -e <file name>` (the one specified the step above)
-- type in and save the secret. It will be encoded and 
+- type in and save the secret. It will be encoded, and can be safely added to git.
 
 ## New system
 
