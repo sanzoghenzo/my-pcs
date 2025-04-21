@@ -11,6 +11,7 @@
     ./rss.nix
     ./podcasts.nix
     ./seafile.nix
+    ./immich.nix
   ];
 
   system.stateVersion = "23.11";

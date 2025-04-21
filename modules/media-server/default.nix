@@ -71,7 +71,7 @@ in {
 
   imports = [
     ./bazarr.nix
-    # ./calibre.nix
+    ./calibre.nix
     ./deluge.nix
     ./jackett.nix
     ./jellyfin.nix
@@ -79,7 +79,7 @@ in {
     ./lidarr.nix
     # ./prowlarr.nix
     ./radarr.nix
-    # ./readarr.nix
+    ./readarr.nix
     ./sonarr.nix
   ];
 }

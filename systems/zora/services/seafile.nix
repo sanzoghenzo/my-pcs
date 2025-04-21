@@ -1,6 +1,6 @@
 {config, ...}: let
   cfg = config.webInfra;
-  hubPort = 8083;
+  hubPort = 8084;
   dataDir = "/data/store";
   svcName = "files";
   fqdn = "https://${svcName}.${cfg.domain}";

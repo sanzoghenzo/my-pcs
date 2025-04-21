@@ -6,9 +6,9 @@ in {
       port = config.services.bazarr.listenPort;
       cert = "staging";
     };
-    # books = {
-    #   port = config.services.calibre-web.listen.port;
-    # };
+    books = {
+      port = config.services.calibre-web.listen.port;
+    };
     torrent = {
       port = config.services.deluge.web.port;
     };
