@@ -51,12 +51,9 @@ in {
         country = "Central Europe";
         timezonecountry = "Italy";
         timezone = "Europe/Rome";
-        subtitlelanguage = "default";
+        subtitlelanguage = "Italian";
+        # audiolanguage = "original";
       };
-      # lookandfeel = {
-      #   # some kids media requires CJK font
-      #   font = "CJK - Spoqa + Inter";
-      # };
       services = {
         devicename = config.networking.hostName;
         webserver = true;
