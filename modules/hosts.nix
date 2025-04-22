@@ -6,11 +6,11 @@
         description = "Description of the device";
         default = "";
       };
-      macAddress = {
+      macAddress = lib.mkOption {
         type = lib.types.str;
         description = "MAC address of the device";
       };
-      ipAddress = {
+      ipAddress = lib.mkOption {
         type = lib.types.str;
         description = "IP Address of the device";
       };
@@ -55,7 +55,12 @@ in {
       sveglia-comodino = {
         description = "huawei used as bedroom alarm clock";
         macAddress = "a4:93:3f:e5:70:88";
-        ipAddress = "192.168.1.211";
+        ipAddress = "192.168.1.209";
+      };
+      modem = {
+        description = "Sorgenia Router";
+        macAddress = "";
+        ipAddress = "192.168.1.1";
       };
 
       # IoT (Shelly)
@@ -83,11 +88,11 @@ in {
         macAddress = "e8:db:84:d7:d3:72";
         ipAddress = "192.168.1.50";
       };
-      tv = {
+      entertainment-hub = {
         macAddress = "e8:db:84:d4:d1:1b";
         ipAddress = "192.168.1.51";
       };
-      prese-salotto = {
+      homelab-pm = {
         macAddress = "48:e1:e9:62:bf:49";
         ipAddress = "192.168.1.52";
       };
@@ -97,7 +102,8 @@ in {
         ipAddress = "192.168.1.5";
       };
       ## vaacum cleaner
-      robot-aspirapolvere = {
+      dot = {
+        description = "Vaacuum";
         macAddress = "b0:4a:39:65:85:4a";
         ipAddress = "192.168.1.6";
       };

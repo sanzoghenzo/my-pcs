@@ -4,7 +4,7 @@
     extraPackages = [
       pkgs.vaapiVdpau
       pkgs.libvdpau-va-gl
-      pkgs.mesa.drivers
+      pkgs.mesa
     ];
   };
 }

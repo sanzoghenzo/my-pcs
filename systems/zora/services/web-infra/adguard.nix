@@ -4,23 +4,22 @@
   ...
 }: let
   cfg = config.webInfra;
+  hosts = config.hostInventory;
 in {
   config = lib.mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPorts = [53];
-      allowedUDPPorts = [53];
+      allowedUDPPorts = [53 67];
     };
 
     services.adguardhome = {
       enable = true;
+
       # TODO = uncomment once everything is done declaratively
       # mutableSettings = false;
       settings = {
         http = {
-          pprof = {
-            port = 6060;
-            enabled = false;
-          };
+          pprof.enabled = false;
           address = "127.0.0.1:3000";
           session_ttl = "720h";
         };
@@ -39,9 +38,6 @@ in {
           bind_hosts = ["0.0.0.0"];
           port = 53;
           anonymize_client_ip = false;
-          ratelimit = 20;
-          ratelimit_subnet_len_ipv4 = 24;
-          ratelimit_subnet_len_ipv6 = 56;
           ratelimit_whitelist = [];
           refuse_any = true;
           upstream_dns = [
@@ -52,8 +48,8 @@ in {
           bootstrap_dns = [
             "9.9.9.10"
             "149.112.112.10"
-            "2620:fe::10"
-            "2620:fe::fe:10"
+            # "2620:fe::10"
+            # "2620:fe::fe:10"
           ];
           fallback_dns = [];
           upstream_mode = "load_balance";
@@ -67,14 +63,14 @@ in {
           ];
           trusted_proxies = [
             "127.0.0.0/8"
-            "::1/128"
+            # "::1/128"
           ];
           cache_size = 4194304;
           cache_ttl_min = 0;
           cache_ttl_max = 0;
           cache_optimistic = false;
           bogus_nxdomain = [];
-          aaaa_disabled = false;
+          aaaa_disabled = true;
           enable_dnssec = false;
           edns_client_subnet = {
             custom_ip = "";
@@ -156,23 +152,25 @@ in {
         whitelist_filters = [];
         user_rules = [];
         dhcp = {
-          # TODO: enable and configure properly
-          enabled = false;
-          interface_name = "";
-          local_domain_name = "lan";
+          enabled = true;
+          interface_name = "eth0";
+          local_domain_name = "sanzoghenzo.lan";
           dhcpv4 = {
-            gateway_ip = "192.168.1.1";
+            gateway_ip = hosts.modem.ipAddress;
             subnet_mask = "255.255.255.0";
             range_start = "192.168.1.60";
             range_end = "192.168.1.210";
             lease_duration = 86400;
             icmp_timeout_msec = 1000;
-            options = [];
+            options = [
+              "15 text sanzoghenzo.lan"
+              "119 text sanzoghenzo.lan"
+            ];
           };
           dhcpv6 = {
             range_start = "";
             lease_duration = 86400;
-            ra_slaac_only = false;
+            ra_slaac_only = true;
             ra_allow_slaac = false;
           };
         };

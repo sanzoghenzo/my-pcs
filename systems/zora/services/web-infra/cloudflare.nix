@@ -42,22 +42,5 @@ in {
     };
     systemd.services.traefik.environment.CF_DNS_API_TOKEN_FILE =
       config.age.secrets.cloudflare-dns-api-token.path;
-
-    # age.secrets.ddns-updater-config = {
-    #   file = ../../../../secrets/ddns-updater-config.age;
-    #   owner = "";
-    #   group = "";
-    #   mode = "440";
-    # };
-    # # dynamic dns client for cloudflare
-    # services.ddclient = {
-    #   enable = true;
-    #   daemon = 1800;
-    #   use = "web, web=checkip.dyndns.org/, web-skip='IP Address'";
-    #   protocol = "cloudflare";
-    #   ssl = "yes";
-    #   zone = cfg.domain;
-    #   server = "www-Cloudflare-com";
-    # };
   };
 }

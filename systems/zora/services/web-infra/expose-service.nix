@@ -41,7 +41,7 @@
           Name of the host running the service.
           It will be used by the internal DNS to do masquerading.
         '';
-        default = "192.168.1.225";
+        default = config.hostInventory.zora.ipAddress;
       };
       secure = lib.mkOption {
         type = lib.types.bool;
@@ -74,14 +74,16 @@ in {
         cfg;
       services =
         lib.mapAttrs
-        (name: svc: {
+        (name: svc: let
+          scheme = "http${
+            if svc.secure
+            then "s"
+            else ""
+          }";
+        in {
           loadBalancer.servers = [
             {
-              url = "http${
-                if svc.secure
-                then "s"
-                else ""
-              }://${svc.targetHost}:${builtins.toString svc.port}";
+              url = "${scheme}://${svc.targetHost}:${builtins.toString svc.port}";
             }
           ];
         })

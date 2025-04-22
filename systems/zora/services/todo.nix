@@ -1,29 +1,30 @@
 {config, ...}: let
   cfg = config.webInfra;
   svcName = "todo";
+  frontendHostname = "${svcName}.${cfg.domain}";
+  frontendScheme = "https";
 in {
+  age.secrets.vikunja-envvars.file = ../../../secrets/vikunja-envvars.age;
+
   services.vikunja = {
     enable = true;
-    frontendHostname = "${svcName}.${cfg.domain}";
-    frontendScheme = "https";
+    frontendHostname = frontendHostname;
+    frontendScheme = frontendScheme;
     settings = {
       service.timezone = "Europe/Rome";
-      # TODO: setup rauthy!!!
       service.enableregistration = false;
-      # auth.local.enabled = false;
-      # auth.openid = {
-      #   enabled = true;
-      #   providers = [{
-      #     name = "rauthy";
-      #     authurl = "https://auth.${domain}/...";  # issuer
-      #     logouturl = "";
-      #     clientid = "";
-      #     clientsecret = "";
-      #   }];
-      # };
+      auth.local.enabled = false;
+      auth.openid = {
+        enabled = true;
+        redirecturl = "${frontendScheme}://${frontendHostname}/auth/openid/pocketid";
+        providers.pocketid = {
+          name = "Pocket-Id";
+          authurl = "https://auth.${cfg.domain}";
+        };
+      };
       # metrics.enabled = true;  # https://vikunja.io/docs/metrics-setup/
     };
-    # environmentFiles = [];
+    environmentFiles = [config.age.secrets.vikunja-envvars.path];
   };
 
   proxiedServices."${svcName}" = {

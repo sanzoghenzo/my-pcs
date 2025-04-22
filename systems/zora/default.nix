@@ -3,7 +3,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  hosts = config.hostInventory;
+in {
   imports = [
     ./hardware-configuration.nix
     ../common/services/tailscale.nix
@@ -13,9 +15,22 @@
   ];
 
   hostname = "zora";
+  networking = {
+    useDHCP = false;
+    interfaces.eth0.ipv4.addresses = [
+      {
+        address = hosts.zora.ipAddress;
+        prefixLength = 24;
+      }
+    ];
+    defaultGateway = {
+      address = hosts.modem.ipAddress;
+      interface = "eth0";
+    };
+    nameservers = ["127.0.0.1" "1.1.1.1"];
+  };
   baseServer.enable = true;
   webInfra.enable = true;
-  monitoring.enable = false;
   mediaServer.enable = true;
   mediaServer.openPorts = true;
   virtualisation.podman.defaultNetwork.settings.dns_enabled = lib.mkForce false;

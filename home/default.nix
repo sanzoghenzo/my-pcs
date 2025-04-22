@@ -5,8 +5,9 @@
   ...
 }: let
   cfg = config.user;
+  hosts = config.hostInventory;
 in {
-  imports = [./starship.nix];
+  imports = [./starship.nix ../modules/hosts.nix];
 
   options.user = {
     enable = lib.mkEnableOption "user";
@@ -72,7 +73,7 @@ in {
         ++ lib.optionals cfg.desktop [
           anytype
           blender
-          kdrive
+          seafile-client
           qbittorrent
           onlyoffice-bin
           spotify
@@ -155,26 +156,26 @@ in {
         enable = true;
         matchBlocks = {
           holodeck = {
-            hostname = "192.168.1.220";
+            hostname = hosts.holodeck.ipAddress;
             identityFile = cfg.identityFile;
           };
           viewscreen = {
-            hostname = "192.168.1.224";
+            hostname = hosts.viewscreen.ipAddress;
             identityFile = cfg.identityFile;
           };
           zora = {
-            hostname = "192.168.1.225";
+            hostname = hosts.zora.ipAddress;
             identityFile = cfg.identityFile;
           };
           modem = {
-            hostname = "192.168.1.1";
+            hostname = hosts.modem.ipAddress;
             user = "root";
           };
           "gitlab.com" = {
             identityFile = cfg.identityFile;
           };
           sveglia = {
-            hostname = "192.168.1.209";
+            hostname = hosts.sveglia-comodino.ipAddress;
             identityFile = cfg.identityFile;
             port = 8022;
           };

@@ -65,7 +65,7 @@
   services.adguardhome.settings.filtering.rewrites = [
     {
       domain = "mqtt.sanzoghenzo.com";
-      answer = "192.168.1.225";
+      answer = config.hostInventory.zora.ipAddress;
     }
   ];
 }
