@@ -7,8 +7,7 @@
     ./ups
     ./budget.nix
     ./rss.nix
-    ./podcasts.nix
-    ./seafile.nix
+    ./opencloud.nix
     ./immich.nix
   ];
 
