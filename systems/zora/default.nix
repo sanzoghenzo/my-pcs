@@ -32,6 +32,7 @@ in {
   webInfra.enable = true;
   mediaServer.enable = true;
   mediaServer.openPorts = true;
+  monitoring.enable = true;
   virtualisation.podman.defaultNetwork.settings.dns_enabled = lib.mkForce false;
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 

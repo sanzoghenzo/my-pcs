@@ -8,5 +8,6 @@
     ./hosts.nix
     ./media-server
     ./backup.nix
+    ./monitoring.nix
   ];
 }
