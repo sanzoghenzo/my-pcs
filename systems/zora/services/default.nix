@@ -2,7 +2,6 @@
   imports = [
     ./web-infra
     ./smart-home
-    ./pkm.nix
     ./expose-services.nix
     ./ntfy.nix
     ./ups
