@@ -34,10 +34,10 @@
     fsType = "vfat";
   };
 
-  fileSystems."/data" = {
-    device = "/dev/disk/by-partlabel/data";
-    fsType = "ext4";
-  };
+  # fileSystems."/data" = {
+  #   device = "/dev/disk/by-partlabel/data";
+  #   fsType = "ext4";
+  # };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = true;
