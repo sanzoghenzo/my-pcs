@@ -9,6 +9,7 @@
     curl
     eza
     fzf
+    zellij
   ];
   programs = {
     thefuck.enable = true;
