@@ -1,7 +1,6 @@
 {lib, ...}: {
   imports = [
     ./traefik.nix
-    ./cloudflare.nix
     ./adguard.nix
     ./auth.nix
     ./expose-service.nix
