@@ -10,5 +10,6 @@
     ./zigbee2mqtt.nix
     ./home-assistant.nix
     ./psa-car-controller.nix
+    ./openthread.nix
   ];
 }

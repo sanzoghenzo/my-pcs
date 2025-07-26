@@ -9,5 +9,6 @@
     ./media-server
     ./backup.nix
     ./monitoring.nix
+    ./openthread-border-router.nix
   ];
 }
