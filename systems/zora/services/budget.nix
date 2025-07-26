@@ -6,8 +6,8 @@
     settings = {
       port = 5555; # like $$$$
       loginMethod = "openid";
-      openid = {
-        issuer = "https://auth.sanzoghenzo.com";
+      openId = {
+        discoveryURL = "https://auth.sanzoghenzo.com";
         server_hostname = "https://budget.sanzoghenzo.com";
         authMethod = "oauth2";
       };
