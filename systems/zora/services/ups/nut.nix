@@ -11,8 +11,8 @@
       port = "auto";
       directives = [
         "langid_fix = 0x409"
-        # "vendorid = 0665"
-        # "productid = 5161"
+        "vendorid = 0665"
+        "productid = 5161"
       ];
     };
     # if config.power.ups.mode == "netserver" then "primary-client" else "secondary-client";
