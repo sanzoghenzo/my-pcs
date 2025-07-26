@@ -1,9 +1,4 @@
-{pkgs}:
-# let
-#   inherit (pkgs.libretro) mame2003-plus parallel-n64;
-# in
-rec {
-  kdrive = pkgs.callPackage ./kdrive {};
+{pkgs}: {
   horus = pkgs.kodi-gbm.packages.callPackage ./horus {};
   protobuf-kodi = pkgs.kodi-gbm.packages.callPackage ./protobuf {};
   hyperion-kodi = pkgs.kodi-gbm.packages.callPackage ./hyperion-kodi {};
