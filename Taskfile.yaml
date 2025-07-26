@@ -1,9 +1,9 @@
-version: '3'
+version: "3"
 
 tasks:
   lint:
     desc: Format the files
-    cmds: [nix fmt]
+    cmds: [nix fmt .]
 
   stage:
     internal: true
