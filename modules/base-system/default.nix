@@ -11,6 +11,7 @@ in {
     ./locale.nix
     ./cleanup.nix
     ./packages.nix
+    ./starship.nix
   ];
 
   options = {

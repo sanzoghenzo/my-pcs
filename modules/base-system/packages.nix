@@ -12,6 +12,6 @@
   ];
   programs = {
     thefuck.enable = true;
-    # TODO: starship
+    atop.enable = true;
   };
 }

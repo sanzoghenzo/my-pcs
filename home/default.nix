@@ -7,7 +7,7 @@
   cfg = config.user;
   hosts = config.hostInventory;
 in {
-  imports = [./starship.nix ../modules/hosts.nix];
+  imports = [../modules/hosts.nix];
 
   options.user = {
     enable = lib.mkEnableOption "user";

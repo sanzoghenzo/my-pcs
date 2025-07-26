@@ -1,19 +1,20 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
-  cfg = config.user;
   codeFormat = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
   codeStyle = "bg:color_blue";
 in {
-  config.programs.starship = lib.mkIf cfg.enable {
+  fonts.packages = with pkgs; [nerd-fonts.fira-code];
+
+  programs.starship = {
     enable = true;
     settings = {
       add_newline = true;
-      # TODO: https://starship.rs/presets/gruvbox-rainbow
       format = lib.concatStrings [
-        "[](color_orange)"
+        "(color_orange)"
         "$username"
         "[](bg:color_yellow fg:color_orange)"
         "$directory"
@@ -35,7 +36,7 @@ in {
         "$conda"
         "[](fg:color_bg3 bg:color_bg1)"
         "$time"
-        "[ ](fg:color_bg1)"
+        "[ ](fg:color_bg1)"
         "$line_break$character"
       ];
       palette = "gruvbox_dark";
