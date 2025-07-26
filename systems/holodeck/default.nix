@@ -7,13 +7,14 @@
   imports = [
     ./hardware-configuration.nix
     ../common/services/tailscale.nix
-    ./backup.nix
   ];
 
   hostname = "holodeck";
   baseServer.enable = true;
   mediaServer.enable = true;
   mediaServer.openPorts = true;
+  dailyBackup.enable = true;
+
   # enable intel hw acceleration for jellyfin
   hardware.graphics = {
     enable = true;

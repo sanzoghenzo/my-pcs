@@ -16,5 +16,9 @@ in {
       listen.ip = "0.0.0.0";
       openFirewall = cfg.openPorts;
     };
+
+    # services.calibre-web.dataDir can be without the leading /var/lib,
+    # using hardcoded path for now
+    dailyBackup.paths = ["/var/lib/calibre-web"];
   };
 }

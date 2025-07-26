@@ -288,5 +288,7 @@ in
       users.users.jellyfin.extraGroups = ["render"];
 
       # ${services.jellyfin.configDir}/system.xml (lib.toFile systemConfig)
+
+      dailyBackup.paths = [config.services.jellyfin.dataDir];
     };
   }

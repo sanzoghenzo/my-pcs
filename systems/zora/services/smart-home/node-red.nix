@@ -50,4 +50,6 @@ in {
   proxiedServices.iot = {
     port = config.services.node-red.port;
   };
+
+  dailyBackup.paths = [config.services.node-red.userDir];
 }

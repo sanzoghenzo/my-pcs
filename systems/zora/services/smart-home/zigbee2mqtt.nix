@@ -27,4 +27,6 @@
   };
 
   proxiedServices.z2m.port = 1884;
+
+  dailyBackup.paths = [config.services.zigbee2mqtt.dataDir];
 }

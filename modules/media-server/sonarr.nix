@@ -11,7 +11,10 @@ in {
       group = cfg.group;
       openFirewall = cfg.openPorts;
     };
+
+    dailyBackup.paths = [config.services.sonarr.dataDir];
   };
+
   # services.sonarr.dataDir + config.xml
   # <Config>
   #   <LogLevel>info</LogLevel>

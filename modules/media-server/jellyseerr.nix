@@ -8,6 +8,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.jellyseerr.enable = cfg.enable;
     services.jellyseerr.openFirewall = cfg.openPorts;
+
+    dailyBackup.paths = ["/var/lib/private/jellyseerr"];
   };
 
   # /var/lib/jellyseerr/settings.json

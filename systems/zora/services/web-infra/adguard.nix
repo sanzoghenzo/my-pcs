@@ -240,7 +240,9 @@ in {
       cert = "staging";
     };
 
-    # TODO: dhcp leases are defined in /var/lib/AdGuardHome/data/leases.json
+    # dhcp leases are defined in /var/lib/AdGuardHome/data/leases.json
     # "The file format is not stable and may change in the future releases"
+    # let's backup it for now
+    dailyBackup.paths = ["/var/lib/AdGuardHome/data/leases.json"];
   };
 }

@@ -27,5 +27,7 @@ in {
       group = cfg.group;
       mode = "440";
     };
+
+    dailyBackup.paths = [config.services.deluge.dataDir];
   };
 }

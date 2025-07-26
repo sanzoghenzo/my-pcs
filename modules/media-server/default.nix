@@ -67,6 +67,8 @@ in {
       "d ${cfg.downloadsDir} 0770 - ${cfg.group} - -"
       "d ${cfg.booksDir} 0770 - ${cfg.group} - -"
     ];
+
+    dailyBackup.exclude = ["*/MediaCover/"];
   };
 
   imports = [

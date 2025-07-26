@@ -68,4 +68,6 @@
       answer = config.hostInventory.zora.ipAddress;
     }
   ];
+
+  dailyBackup.paths = [config.services.mosquitto.dataDir];
 }

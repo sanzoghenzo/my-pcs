@@ -11,7 +11,6 @@ in {
     ../common/services/tailscale.nix
     ../common/services/podman.nix
     ./services
-    ./backup.nix
   ];
 
   hostname = "zora";
@@ -46,5 +45,11 @@ in {
   };
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+  };
+
+  dailyBackup = {
+    enable = true;
+    # here we add the containers data dir, the other services will add their own paths
+    paths = ["/var/lib/containers/storage/volumes"];
   };
 }

@@ -11,6 +11,8 @@ in {
       group = cfg.group;
       openFirewall = cfg.openPorts;
     };
+
+    dailyBackup.paths = [config.services.radarr.dataDir];
   };
 
   # services.radarr.dataDir + config.xml

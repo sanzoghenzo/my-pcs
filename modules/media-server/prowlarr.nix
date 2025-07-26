@@ -8,5 +8,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.prowlarr.enable = cfg.enable;
     services.prowlarr.openFirewall = cfg.openPorts;
+
+    dailyBackup.paths = ["/var/lib/private/prowlarr"];
   };
 }

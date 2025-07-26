@@ -16,4 +16,6 @@
   systemd.services.actual.serviceConfig.environmentFile = config.age.secrets.actual-oidc-config.path;
 
   proxiedServices.budget.port = config.services.actual.settings.port;
+
+  dailyBackup.paths = ["/var/lib/actual"];
 }
