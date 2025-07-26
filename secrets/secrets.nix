@@ -41,7 +41,6 @@ in {
     zora
   ];
   "nut-password.age".publicKeys = [sanzo] ++ systems;
-  "miniflux-oauth-id.age".publicKeys = [sanzo zora];
   "miniflux-oauth-secret.age".publicKeys = [sanzo zora];
   "actual-oidc-config.age".publicKeys = [sanzo zora];
 }
